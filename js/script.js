@@ -19,6 +19,7 @@ on(document, 'dragover', e =>
 on(document, 'drop', e =>
 {
   dragDropIndicator.classList.add('hidden');
+  cleanupPreviousUploadItems();
   prepareFilesForUpload(e.dataTransfer.files);
   uploadFiles();
 });
@@ -26,6 +27,7 @@ on(document, 'drop', e =>
 fileUploadButton.classList.add('hidden');
 on(fileInput, 'change', e =>
 {
+  cleanupPreviousUploadItems();
   prepareFilesForUpload(fileInput.files);
   fileUploadButton.classList.remove('hidden');
 });
@@ -34,6 +36,12 @@ on(fileUploadForm, 'submit', e =>
 {
   uploadFiles();
 });
+
+function cleanupPreviousUploadItems()
+{
+  fileList.querySelectorAll('.item-row.success').forEach(el => el.classList.remove('success'));
+  fileList.querySelectorAll('.item-row.pending, .item-row.error').forEach(el => el.remove());
+}
 
 let selectedFiles = [];
 let approvedFiles = [];
