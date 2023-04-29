@@ -20,40 +20,49 @@ on(document, 'drop', e =>
 {
   dragDropIndicator.classList.add('hidden');
   cleanupPreviousUploadItems();
-  prepareFilesForUpload(e.dataTransfer.files);
-  uploadFiles();
+  if (prepareFilesForUpload(e.dataTransfer.files))
+    uploadFiles();
 });
 
 fileUploadButton.classList.add('hidden');
-on(fileInput, 'change', e =>
+on(fileInput, 'change', () =>
 {
   cleanupPreviousUploadItems();
-  prepareFilesForUpload(fileInput.files);
-  fileUploadButton.classList.remove('hidden');
+  if (prepareFilesForUpload(fileInput.files))
+    fileUploadButton.classList.remove('hidden');
 });
 
-on(fileUploadForm, 'submit', e =>
+on(fileUploadForm, 'submit', () =>
 {
+  fileUploadButton.classList.add('hidden');
   uploadFiles();
+  fileInput.value = null;
 });
+
+let isUploading = false;
+window.onbeforeunload = () =>
+{
+  if (isUploading) {
+    return L('warning_close_while_uploading');
+  }
+};
 
 function cleanupPreviousUploadItems()
 {
+  fileUploadButton.classList.add('hidden');
   fileList.querySelectorAll('.item-row.success').forEach(el => el.classList.remove('success'));
-  fileList.querySelectorAll('.item-row.pending, .item-row.error').forEach(el => el.remove());
+  fileList.querySelectorAll('.item-row.prepared, .item-row.error').forEach(el => el.remove());
 }
 
 let selectedFiles = [];
 let approvedFiles = [];
 function prepareFilesForUpload(files)
 {
-  console.log('(PREPARE)');
   selectedFiles = files;
   approvedFiles = [];
 
   for (let i = 0; i < files.length; ++i) {
     let file = files[i];
-    console.log(file);
 
     let fileError = false;
     if (file.size === 0) {
@@ -81,36 +90,38 @@ function prepareFilesForUpload(files)
     if (fileError) {
       newFileItem.classList.add('error');
       newFileDetails.innerHTML = fileError;
-      console.log(file.name, fileError);
     }
     else {
-      newFileItem.classList.add('pending');
+      newFileItem.classList.add('prepared');
       newFileDetails.innerHTML = fileSizeStr(file.size);
       approvedFiles.push([i, newFileItem]);
-      console.log(file.name, 'APPROVED FOR UPLOAD');
     }
   }
+  return approvedFiles.length;
 }
 
 function uploadFiles()
 {
-  console.log('(UPLOAD)');
+  if (!approvedFiles.length)
+    return;
+
+  isUploading = true;
+
   let formData = new FormData();
   for (let i = 0; i < approvedFiles.length; ++i) {
-    let si = approvedFiles[i][0];
+    const [si, fileItem] = approvedFiles[i];
     formData.append('files[]', selectedFiles[si]);
-    console.log(selectedFiles[si].name, 'QUEUED FOR UPLOAD');
+    fileItem.classList.remove('prepared');
+    fileItem.classList.add('uploading');
   }
 
   xhRequestPost('./?action=upload', formData, responseText =>
   {
-    console.log('(RESPONSE)');
+    isUploading = false;
+
     if (responseText.length) {
       let responseList = JSON.parse(responseText);
-      for (const [ai, fileName, fileError] of responseList) {
-        console.log(fileName, fileError);
-        let newFileItem = approvedFiles[ai][1];
-        newFileItem.classList.remove('pending');
+        newFileItem.classList.remove('uploading');
 
         let newFileDetails = newFileItem.querySelector('.file-details');
         if (fileError) {
@@ -123,9 +134,6 @@ function uploadFiles()
       }
     }
   }, true);
-
-  fileInput.value = null;
-  fileUploadButton.classList.add('hidden');
 }
 
 function fileSizeStr(numBytes)

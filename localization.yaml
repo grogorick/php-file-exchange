@@ -34,3 +34,7 @@ upload:
 empty:
  en: "Empty"
  de: "Leer"
+
+warning_close_while_uploading:
+ en: "The current upload will fail if you leave now."
+ de: "Hochladen wird abgebrochen, wenn du jetzt gehst."
