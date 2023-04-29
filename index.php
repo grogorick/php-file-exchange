@@ -33,6 +33,15 @@ switch ($_GET['action']) {
     {
       $response = [];
 
+      $err = error_get_last();
+      if (!is_null($err)) {
+        $err_msg = $err['message'];
+        if (str_starts_with($err_msg, 'POST Content-Length'))
+          action_response([null, null, ['upload_failed_server_upload_size']]);
+
+        action_response([null, null, [$err_msg]]); // any other error
+      }
+
       foreach ($_FILES['files']['error'] as $i => $error_code) {
         $file_name = $_FILES['files']['name'][$i];
 

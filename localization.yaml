@@ -14,6 +14,9 @@ upload_failed_file_empty_or_directory:
 upload_failed_file_type:
  en: "File type (%s) not permitted."
  de: "Dateityp (%s) nicht erlaubt."
+upload_failed_server_upload_size:
+ en: "Exceeded server limit for total upload file size."
+ de: "Serverlimit für Gesamtgröße hochgeladener Dateien überschritten."
 upload_failed_file_size:
  en: "File too large (max %s)."
  de: "Datei zu groß (max %s)."

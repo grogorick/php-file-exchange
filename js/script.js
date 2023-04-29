@@ -121,6 +121,17 @@ function uploadFiles()
 
     if (responseText.length) {
       let responseList = JSON.parse(responseText);
+      if (responseList[0] === null) {
+        const [uploadError, ...errorArgs] = responseList[2];
+        let errorMsg = L(uploadError, errorArgs);
+
+        for (const [_, fileItem] of approvedFiles) {
+          fileItem.classList.remove('uploading');
+          fileItem.classList.add('error');
+          fileItem.querySelector('.file-details').innerHTML = errorMsg;
+        }
+        return;
+      }
       for (const [ai, _, [fileError, ...errorArgs]] of responseList) {
         let fileItem = approvedFiles[ai][1];
         fileItem.classList.remove('uploading');
