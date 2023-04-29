@@ -69,7 +69,7 @@ switch ($_GET['action']) {
           continue;
         }
 
-        $response[] = [$i, $file_name, false];
+        $response[] = [$i, $file_name, [false]];
       }
       action_response($response);
     }
