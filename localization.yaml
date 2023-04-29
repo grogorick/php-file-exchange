@@ -4,9 +4,13 @@ precheck_path_is_file:
 precheck_mkdir_failed:
  en: "ERROR: Failed to create upload directory `%s`."
  de: "FEHLER: Zielverzeichnis `%s` konnte nicht erstellt werden!"
+
 upload_failed_error_code:
  en: "Upload failed (error code #%s)."
  de: "Hochladen fehlgeschlagen (Fehlercode #%s)."
+upload_failed_file_empty_or_directory:
+ en: "Directories or empty files are not supported."
+ de: "Verzeichnisse oder leere Dateien werden nicht unterstützt."
 upload_failed_file_type:
  en: "File type (%s) not permitted."
  de: "Dateityp (%s) nicht erlaubt."

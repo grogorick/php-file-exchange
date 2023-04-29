@@ -48,12 +48,17 @@ function prepareFilesForUpload(files)
     console.log(file);
 
     let fileError = false;
-    let fileExt = file.name.substring(file.name.lastIndexOf('.'));
-    if (!allowedFileExtensions.includes(fileExt)) {
-      fileError = L('upload_failed_file_type', fileExt);
+    if (file.size === 0) {
+      fileError = L('upload_failed_file_empty_or_directory');
     }
     else if (file.size > maxFileSize) {
       fileError = L('upload_failed_file_size', fileSizeStr(file.size));
+    }
+    else {
+      let fileExt = file.name.substring(file.name.lastIndexOf('.'));
+      if (!allowedFileExtensions.includes(fileExt)) {
+        fileError = L('upload_failed_file_type', fileExt);
+      }
     }
 
     let newFileItem = fileItemTemplate.cloneNode(true);
