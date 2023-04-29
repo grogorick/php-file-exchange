@@ -121,15 +121,17 @@ function uploadFiles()
 
     if (responseText.length) {
       let responseList = JSON.parse(responseText);
-        newFileItem.classList.remove('uploading');
+      for (const [ai, _, [fileError, ...errorArgs]] of responseList) {
+        let fileItem = approvedFiles[ai][1];
+        fileItem.classList.remove('uploading');
 
-        let newFileDetails = newFileItem.querySelector('.file-details');
+        let fileDetails = fileItem.querySelector('.file-details');
         if (fileError) {
-          newFileItem.classList.add('error');
-          newFileDetails.innerHTML = fileError;
+          fileItem.classList.add('error');
+          fileDetails.innerHTML = L(fileError, errorArgs);
         }
         else {
-          newFileItem.classList.add('success');
+          fileItem.classList.add('success');
         }
       }
     }
