@@ -30,3 +30,7 @@ drop_files:
 upload:
  en: "Upload"
  de: "Hochladen"
+
+empty:
+ en: "Empty"
+ de: "Leer"

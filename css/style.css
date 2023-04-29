@@ -47,9 +47,20 @@ a {
 .item-row {
 	padding: 5pt 20pt;
 }
+.item-row:not(:first-child) {
+	border-top: 1px solid;
+}
 
-.item-row:not(:last-child) {
-	border-bottom: 1px solid;
+
+.item-row.empty:nth-child(n+3) { /* at least one file + template + itself */
+    display: none;
+}
+.item-row.empty {
+	border: none;
+    font-style: italic;
+    font-size: 2rem;
+    color: #888;
+    text-align: center;
 }
 
 

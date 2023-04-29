@@ -103,20 +103,24 @@ switch ($_GET['action']) {
       {
         $is_template = is_null($file_name);
         ?>
-            <div <?=$is_template ? 'id="file-item-template"' : ''?> class="item-row <?=$is_template ? 'hidden' : ''?>">
+            <div class="item-row <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
               <div class="file-name"><?=$file_name?></div>
               <div class="file-details"><?=$file_name ? file_size($file_name) : ''?></div>
             </div>
         <?php
       }
 
-      file_element();
-
       $files = scandir(DIR);
       foreach ($files as $file_name)
         if (is_file(DIR . $file_name))
           file_element($file_name);
+
+      file_element();
     ?>
+
+    <div class="item-row empty">
+      <?=L('empty')?>
+    </div>
   </div>
 
   <div id="drag-drop-indicator" class="hidden"><div><div><?=L('drop_files')?></div></div></div>
