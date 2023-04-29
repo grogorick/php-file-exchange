@@ -1,0 +1,28 @@
+precheck_path_is_file:
+ en: "ERROR: Upload path `%s` points to a file instead of a directory!"
+ de: "FEHLER: Zielpfad `%s` zeigt auf eine Datei statt auf ein Verzeichnis!"
+precheck_mkdir_failed:
+ en: "ERROR: Failed to create upload directory `%s`."
+ de: "FEHLER: Zielverzeichnis `%s` konnte nicht erstellt werden!"
+upload_failed_error_code:
+ en: "Upload failed (error code #%s)."
+ de: "Hochladen fehlgeschlagen (Fehlercode #%s)."
+upload_failed_file_type:
+ en: "File type (%s) not permitted."
+ de: "Dateityp (%s) nicht erlaubt."
+upload_failed_file_size:
+ en: "File too large (max %s)."
+ de: "Datei zu groß (max %s)."
+upload_failed_move_failed:
+ en: "Storing file in upload directory failed."
+ de: "Datei konnte nicht in Zielverzeichnis verschoben werden."
+
+select_files:
+ en: "Select files"
+ de: "Dateien auswählen"
+drop_files:
+ en: "Drop file(s) to upload"
+ de: "Dateien zum Hochladen ablegen"
+upload:
+ en: "Upload"
+ de: "Hochladen"

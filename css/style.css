@@ -1,0 +1,113 @@
+html, body {
+	margin: 0;
+	padding: 0;
+}
+body, form, input {
+	font-family: sans-serif;
+	font-size: 1rem;
+}
+div {
+	margin: 0px;
+	padding: 0px;
+}
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+
+.hidden {
+	display: none !important;
+}
+
+
+.button {
+	cursor: pointer;
+	display: inline-block;
+	padding: 10px 5px;
+	border: none;
+	background: #fff;
+	--button-shadow: 10pt;
+	box-shadow: 0 0 var(--button-shadow) #888;
+}
+.button:hover {
+	--button-shadow: 20pt;
+}
+.button + .button {
+	margin-left: 20pt;
+}
+
+
+#file-upload-form {
+	margin-top: 10pt;
+	margin-bottom: 20pt;
+}
+
+
+.item-row {
+	padding: 5pt 20pt;
+}
+
+.item-row:not(:last-child) {
+	border-bottom: 1px solid;
+}
+
+
+#file-input {
+	display: none;
+}
+
+
+.pending {
+	background: #bbb;
+}
+.error {
+	background: #fbb;
+}
+.success {
+	background: #dfd;
+}
+.error .file-name::after {
+	content: '\2717';
+	color: red;
+}
+.success .file-name::after {
+	content: '\2713';
+	color: green;
+}
+.error .file-name::after,
+.success .file-name::after {
+	display: inline-block;
+	margin-left: 10pt;
+	font-weight: bold;
+}
+
+
+#drag-drop-indicator {
+	position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	backdrop-filter: blur(4pt);
+	padding: 10%;
+}
+#drag-drop-indicator>div {
+	height: 100%;
+	box-sizing: border-box;
+
+	border: 5pt dashed #8883;
+	border-radius: 20pt;
+
+	position: relative;
+}
+#drag-drop-indicator div div {
+	position: absolute;
+	top: 50%;
+	width: 100%;
+	text-align: center;
+
+	font-size: 5vw;
+	font-weight: bold;
+	color: #8886;
+}
