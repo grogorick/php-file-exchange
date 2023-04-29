@@ -36,7 +36,6 @@ on(fileUploadForm, 'submit', () =>
 {
   fileUploadButton.classList.add('hidden');
   uploadFiles();
-  fileInput.value = null;
 });
 
 let isUploading = false;
@@ -102,17 +101,27 @@ function prepareFilesForUpload(files)
 
 function uploadFiles()
 {
-  if (!approvedFiles.length)
+  if (!approvedFiles.length) {
+    fileInput.value = null;
     return;
+  }
 
   isUploading = true;
 
   let formData = new FormData();
+  let uploadFileItems = [];
+  let accuFileSize = 0;
   for (let i = 0; i < approvedFiles.length; ++i) {
     const [si, fileItem] = approvedFiles[i];
-    formData.append('files[]', selectedFiles[si]);
-    fileItem.classList.remove('prepared');
-    fileItem.classList.add('uploading');
+    let file = selectedFiles[si];
+    if ((accuFileSize += file.size) < maxFileSize) {
+      formData.append('files[]', file);
+      uploadFileItems.push(fileItem);
+      fileItem.classList.remove('prepared');
+      fileItem.classList.add('uploading');
+    }
+    else
+      approvedFiles.splice(0, i);
   }
 
   xhRequestPost('./?action=upload', formData, responseText =>
@@ -125,27 +134,30 @@ function uploadFiles()
         const [uploadError, ...errorArgs] = responseList[2];
         let errorMsg = L(uploadError, errorArgs);
 
-        for (const [_, fileItem] of approvedFiles) {
+        for (const fileItem of uploadFileItems) {
           fileItem.classList.remove('uploading');
           fileItem.classList.add('error');
           fileItem.querySelector('.file-details').innerHTML = errorMsg;
         }
-        return;
       }
-      for (const [ai, _, [fileError, ...errorArgs]] of responseList) {
-        let fileItem = approvedFiles[ai][1];
-        fileItem.classList.remove('uploading');
+      else {
+        for (const [ai, _, [fileError, ...errorArgs]] of responseList) {
+          let fileItem = uploadFileItems[ai];
+          fileItem.classList.remove('uploading');
 
-        let fileDetails = fileItem.querySelector('.file-details');
-        if (fileError) {
-          fileItem.classList.add('error');
-          fileDetails.innerHTML = L(fileError, errorArgs);
-        }
-        else {
-          fileItem.classList.add('success');
+          let fileDetails = fileItem.querySelector('.file-details');
+          if (fileError) {
+            fileItem.classList.add('error');
+            fileDetails.innerHTML = L(fileError, errorArgs);
+          }
+          else {
+            fileItem.classList.add('success');
+          }
         }
       }
     }
+
+    uploadFiles(); // remaining/delayed files
   }, true);
 }
 
