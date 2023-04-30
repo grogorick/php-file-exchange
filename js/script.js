@@ -116,7 +116,8 @@ function uploadFiles()
   let formData = new FormData();
   let uploadFileItems = [];
   let accuFileSize = 0;
-  for (let i = 0; i < approvedFiles.length; ++i) {
+  let i = 0;
+  for (; i < approvedFiles.length; ++i) {
     const [si, fileItem] = approvedFiles[i];
     let file = selectedFiles[si];
     if ((accuFileSize += file.size) < maxFileSize) {
@@ -126,8 +127,9 @@ function uploadFiles()
       fileItem.classList.add('uploading');
     }
     else
-      approvedFiles.splice(0, i);
+      break;
   }
+  approvedFiles.splice(0, i);
 
   xhRequestPost('./?action=upload', formData, responseText =>
   {
