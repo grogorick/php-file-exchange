@@ -76,6 +76,15 @@ a {
 .success {
 	background: #dfd;
 }
+.uploading .file-name::after {
+	content: '';
+    --size: 25pt;
+    height: var(--size);
+    width: var(--size);
+    border-radius: 50%;
+    background: radial-gradient(#bdf 50%, transparent 50%),
+	            conic-gradient(white var(--progress), transparent var(--progress));
+}
 .error .file-name::after {
 	content: '\2717';
 	color: red;
@@ -84,11 +93,14 @@ a {
 	content: '\2713';
 	color: green;
 }
+.uploading .file-name::after,
 .error .file-name::after,
 .success .file-name::after {
 	display: inline-block;
 	margin-left: 10pt;
 	font-weight: bold;
+    vertical-align: top;
+	position: absolute;
 }
 
 

@@ -131,41 +131,51 @@ function uploadFiles()
   }
   approvedFiles.splice(0, i);
 
-  xhRequestPost('./?action=upload', formData, responseText =>
-  {
-    isUploading = false;
-
-    if (responseText.length) {
-      let responseList = JSON.parse(responseText);
-      if (responseList[0] === null) {
-        const [uploadError, ...errorArgs] = responseList[2];
-        let errorMsg = L(uploadError, errorArgs);
-
-        for (const fileItem of uploadFileItems) {
-          fileItem.classList.remove('uploading');
-          fileItem.classList.add('error');
-          fileItem.querySelector('.file-details').innerHTML = errorMsg;
-        }
+  xhRequestPost('./?action=upload', formData,
+    progress =>
+    {
+      console.log(progress.loaded, progress.total);
+      let percent = (100 * progress.loaded / progress.total) + '%';
+      for (const fileItem of uploadFileItems) {
+        fileItem.style.setProperty('--progress', percent);
       }
-      else {
-        for (const [ai, _, [fileError, ...errorArgs]] of responseList) {
-          let fileItem = uploadFileItems[ai];
-          fileItem.classList.remove('uploading');
+    },
+    responseText =>
+    {
+      isUploading = false;
 
-          let fileDetails = fileItem.querySelector('.file-details');
-          if (fileError) {
+      if (responseText.length) {
+        let responseList = JSON.parse(responseText);
+        if (responseList[0] === null) {
+          const [uploadError, ...errorArgs] = responseList[2];
+          let errorMsg = L(uploadError, errorArgs);
+
+          for (const fileItem of uploadFileItems) {
+            fileItem.classList.remove('uploading');
             fileItem.classList.add('error');
-            fileDetails.innerHTML = L(fileError, errorArgs);
+            fileItem.querySelector('.file-details').innerHTML = errorMsg;
           }
-          else {
-            fileItem.classList.add('success');
+        }
+        else {
+          for (const [ai, _, [fileError, ...errorArgs]] of responseList) {
+            let fileItem = uploadFileItems[ai];
+            fileItem.classList.remove('uploading');
+
+            let fileDetails = fileItem.querySelector('.file-details');
+            if (fileError) {
+              fileItem.classList.add('error');
+              fileDetails.innerHTML = L(fileError, errorArgs);
+            }
+            else {
+              fileItem.classList.add('success');
+            }
           }
         }
       }
-    }
 
-    uploadFiles(); // remaining/delayed files
-  }, true);
+      uploadFiles(); // remaining/delayed files
+    },
+    true);
 }
 
 function fileSizeStr(numBytes)
@@ -179,22 +189,24 @@ function fileSizeStr(numBytes)
   return numBytes + ' GB';
 }
 
-function xhRequestPost(url, data, responseCallback = null, log = true)
+function xhRequestPost(url, data, progressCallback = null, finishedCallback = null, log = true)
 {
-  let xhttp = new XMLHttpRequest();
-  xhttp.onreadystatechange = () =>
+  let xhr = new XMLHttpRequest();
+  if (progressCallback !== null)
+    xhr.upload.addEventListener('progress', progressCallback);
+  xhr.onreadystatechange = () =>
   {
-    if (xhttp.readyState === 4 && xhttp.status === 200) {
+    if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
       if (log) {
-        console.log(xhttp.responseText);
+        console.log(xhr.responseText);
       }
-      if (responseCallback !== null) {
-        responseCallback(xhttp.responseText);
+      if (finishedCallback !== null) {
+        finishedCallback(xhr.responseText);
       }
     }
   };
-  xhttp.open('POST', url, true);
-  xhttp.send(data);
+  xhr.open('POST', url, true);
+  xhr.send(data);
 }
 
 function debounce(timeout, func)
