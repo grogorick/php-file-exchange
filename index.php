@@ -1,7 +1,7 @@
 <?php
 require('localization/localization.php');
 LOCALIZATION\INIT_FROM_FILE('localization.yaml');
-LOCALIZATION\SET_LOCALE($_GET['lang'] ?? 'en');
+LOCALIZATION\SET_LOCALE($_GET['lang'] ?? 'en-US');
 use function LOCALIZATION\L;
 
 require('utils.php');
@@ -129,7 +129,8 @@ switch ($_GET['action']) {
             <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
               <div class="file-name"><?=$file_name?></div>
               <div class="file-details">
-                <?=$file_name ? file_size($file_name) : ''?>
+                <span class="file-size"><?=$file_name ? file_size($file_name) : ''?></span>
+                <span class="file-time"><?=file_time($file_name)?></span>
               </div>
             </div>
         <?php

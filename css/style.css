@@ -68,14 +68,18 @@ a {
 .row.item:not(:first-child) {
 	border-top: 1px solid;
 }
-.row .file-name {
+.file-name {
     flex: 1;
     min-width: 300pt;
 }
-.row .file-details {
-    width: 200pt;
-    min-width: 200pt;
+.file-details {
 	text-align: right;
+}
+.file-details > * {
+	display: inline-block;
+}
+.file-details .file-time {
+    min-width: 200pt;
 }
 
 
