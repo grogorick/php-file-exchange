@@ -11,8 +11,10 @@ if (!in_array(mb_substr($dir, -1), ['\\', '/']))
   $dir += '/';
 define('DIR', $dir);
 
-$allowed_file_extensions = ['.jpg', '.png'];
-$max_file_size = 1024 * 1024;
+$allowed_file_extensions = ['.jpg', '.png', '.zip'];
+$max_file_size = null; // 1024 * 1024;
+
+$max_file_size = $max_file_size ?: parse_file_size(ini_get('upload_max_filesize'));
 
 if (!is_dir(DIR)) {
   if (file_exists((DIR)))
@@ -65,7 +67,7 @@ switch ($_GET['action']) {
 
         $file_size = $_FILES['files']['size'][$i];
         if ($file_size > $max_file_size) {
-          $response[] = [$i, $file_name, ['upload_failed_file_size', file_size($file_size)]];
+          $response[] = [$i, $file_name, ['upload_failed_file_size', file_size_str($file_size), file_size_str($max_file_size)]];
           continue;
         }
 

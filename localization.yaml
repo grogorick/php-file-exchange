@@ -18,8 +18,8 @@ upload_failed_server_upload_size:
  en: "Exceeded server limit for total upload file size."
  de: "Serverlimit für Gesamtgröße hochgeladener Dateien überschritten."
 upload_failed_file_size:
- en: "File too large (max %s)."
- de: "Datei zu groß (max %s)."
+ en: "File too large (%s | max. %s)."
+ de: "Datei zu groß (%s | max. %s)."
 upload_failed_move_failed:
  en: "Storing file in upload directory failed."
  de: "Datei konnte nicht in Zielverzeichnis verschoben werden."

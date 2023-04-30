@@ -73,7 +73,7 @@ function prepareFilesForUpload(files)
       fileError = L('upload_failed_file_empty_or_directory');
     }
     else if (file.size > maxFileSize) {
-      fileError = L('upload_failed_file_size', fileSizeStr(file.size));
+      fileError = L('upload_failed_file_size', fileSizeStr(file.size), fileSizeStr(maxFileSize));
     }
     else {
       let fileExt = file.name.substring(file.name.lastIndexOf('.'));
