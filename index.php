@@ -23,8 +23,15 @@ if (!is_dir(DIR)) {
 
 function action_response($data)
 {
-  header('Content-Type: application/json; charset=utf-8');
-  echo json_encode($data);
+  if (isset($_GET['no-js'])) {
+    unset($_GET['action']);
+    unset($_GET['no-js']);
+    header('Location: ./?' . http_build_query($_GET));
+  }
+  else {
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($data);
+  }
   exit();
 }
 
@@ -98,10 +105,15 @@ switch ($_GET['action']) {
 
 <body>
 
-  <form id="file-upload-form" action="./?action=upload" method="post" enctype="multipart/form-data">
+  <?php
+    $_GET['action'] = 'upload';
+    $_GET['no-js'] = '';
+    $url = http_build_query($_GET);
+  ?>
+  <form id="file-upload-form" action="./?<?=$url?>" method="post" enctype="multipart/form-data">
     <div class="item-row">
-      <input id="file-input" type="file" name="files[]" multiple><label for="file-input"
-        class="button drag-drop-visual-area"><?=L('select_files')?></label>
+      <input id="file-input" class="button" type="file" name="files[]" multiple>
+      <label for="file-input" class="button hidden"><?=L('select_files')?></label>
       <input type="submit" class="button" value="<?=L('upload')?>">
     </div>
   </form>

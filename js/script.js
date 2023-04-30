@@ -1,9 +1,14 @@
 let dragDropIndicator = document.querySelector('#drag-drop-indicator');
 let fileInput = document.querySelector('#file-input');
+let fileInputLabel = document.querySelector('#file-input + label');
 let fileUploadForm = document.querySelector('#file-upload-form');
 let fileUploadButton = fileUploadForm.querySelector('input[type="submit"]');
 let fileList = document.querySelector('#file-list');
 let fileItemTemplate = fileList.querySelector('#file-item-template');
+
+
+fileInput.classList.add('hidden');
+fileInputLabel.classList.remove('hidden');
 
 on(document, 'dragover', e =>
 {
