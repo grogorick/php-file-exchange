@@ -113,7 +113,7 @@ switch ($_GET['action']) {
     $url = http_build_query($_GET);
   ?>
   <form id="file-upload-form" action="./?<?=$url?>" method="post" enctype="multipart/form-data">
-    <div class="item-row">
+    <div class="row">
       <input id="file-input" class="button" type="file" name="files[]" multiple>
       <label for="file-input" class="button hidden"><?=L('select_files')?></label>
       <input type="submit" class="button" value="<?=L('upload')?>">
@@ -126,9 +126,11 @@ switch ($_GET['action']) {
       {
         $is_template = is_null($file_name);
         ?>
-            <div class="item-row <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
+            <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
               <div class="file-name"><?=$file_name?></div>
-              <div class="file-details"><?=$file_name ? file_size($file_name) : ''?></div>
+              <div class="file-details">
+                <?=$file_name ? file_size($file_name) : ''?>
+              </div>
             </div>
         <?php
       }
@@ -141,7 +143,7 @@ switch ($_GET['action']) {
       file_element();
     ?>
 
-    <div class="item-row empty">
+    <div class="row empty">
       <?=L('empty')?>
     </div>
   </div>
