@@ -90,14 +90,13 @@ function prepareFilesForUpload(files)
     let newSourceName = newFileItem.querySelector('.file-name');
     newSourceName.innerHTML = file.name;
 
-    let newFileDetails = newFileItem.querySelector('.file-details');
     if (fileError) {
       newFileItem.classList.add('error');
-      newFileDetails.innerHTML = fileError;
+      newFileItem.querySelector('.file-details').innerHTML = fileError;
     }
     else {
       newFileItem.classList.add('prepared');
-      newFileDetails.innerHTML = fileSizeStr(file.size);
+      newFileItem.querySelector('.file-size').innerHTML = fileSizeStr(file.size);
       approvedFiles.push([i, newFileItem]);
     }
   }
@@ -122,7 +121,7 @@ function uploadFiles()
     let file = selectedFiles[si];
     if ((accuFileSize += file.size) < maxFileSize) {
       formData.append('files[]', file);
-      uploadFileItems.push(fileItem);
+      uploadFileItems.push([fileItem, file]);
       fileItem.classList.remove('prepared');
       fileItem.classList.add('uploading');
     }
@@ -136,7 +135,7 @@ function uploadFiles()
     {
       console.log(progress.loaded, progress.total);
       let percent = (100 * progress.loaded / progress.total) + '%';
-      for (const fileItem of uploadFileItems) {
+      for (const [fileItem, _] of uploadFileItems) {
         fileItem.style.setProperty('--progress', percent);
       }
     },
@@ -150,7 +149,7 @@ function uploadFiles()
           const [uploadError, ...errorArgs] = responseList[2];
           let errorMsg = L(uploadError, errorArgs);
 
-          for (const fileItem of uploadFileItems) {
+          for (const [fileItem, _] of uploadFileItems) {
             fileItem.classList.remove('uploading');
             fileItem.classList.add('error');
             fileItem.querySelector('.file-details').innerHTML = errorMsg;
@@ -158,16 +157,16 @@ function uploadFiles()
         }
         else {
           for (const [ai, _, [fileError, ...errorArgs]] of responseList) {
-            let fileItem = uploadFileItems[ai];
+            const [fileItem, _] = uploadFileItems[ai];
             fileItem.classList.remove('uploading');
 
-            let fileDetails = fileItem.querySelector('.file-details');
             if (fileError) {
               fileItem.classList.add('error');
-              fileDetails.innerHTML = L(fileError, errorArgs);
+              fileItem.querySelector('.file-details').innerHTML = L(fileError, errorArgs);
             }
             else {
               fileItem.classList.add('success');
+              fileItem.querySelector('.file-time').innerHTML = currentTimeStr();
             }
           }
         }
@@ -187,6 +186,11 @@ function fileSizeStr(numBytes)
     numBytes = numBytes >> 10;
   }
   return numBytes + ' GB';
+}
+
+function currentTimeStr()
+{
+  return new Date().toLocaleDateString(LOCALE, { weekday:'long', year:'numeric', month:'short', day:'numeric'});
 }
 
 function xhRequestPost(url, data, progressCallback = null, finishedCallback = null, log = true)

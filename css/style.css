@@ -45,7 +45,7 @@ a {
 
 
 .row {
-	padding: 5pt 20pt;
+	padding: 10pt 20pt;
 }
 
 
@@ -102,9 +102,10 @@ a {
 }
 .uploading .file-name::after {
 	content: '';
-    --size: 25pt;
+    --size: 19pt;
     height: var(--size);
     width: var(--size);
+    margin-top: -2pt;
     border-radius: 50%;
     background: radial-gradient(#bdf 50%, transparent 50%),
 	            conic-gradient(white var(--progress), transparent var(--progress));
@@ -121,10 +122,10 @@ a {
 .error .file-name::after,
 .success .file-name::after {
 	display: inline-block;
-	margin-left: 10pt;
-	font-weight: bold;
-    vertical-align: top;
-	position: absolute;
+    position: absolute;
+    margin-left: 10pt;
+    font-weight: bold;
+    font-size: 90%;
 }
 
 

@@ -129,8 +129,8 @@ switch ($_GET['action']) {
             <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
               <div class="file-name"><a download href="<?=DIR . $file_name?>"><?=$file_name?></a></div>
               <div class="file-details">
-                <span class="file-size"><?=$file_name ? file_size($file_name) : ''?></span>
-                <span class="file-time"><?=file_time($file_name)?></span>
+                <span class="file-size"><?=$is_template ? '' : file_size($file_name)?></span>
+                <span class="file-time"><?=$is_template ? '' : file_time($file_name)?></span>
               </div>
             </div>
         <?php
