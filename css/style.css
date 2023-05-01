@@ -68,6 +68,11 @@ a {
 .row.item:not(:first-child) {
 	border-top: 1px solid;
 }
+.row.item:hover {
+    box-shadow: 0 0 10pt #8885;
+}
+
+
 .file-name {
     flex: 1;
     min-width: 300pt;

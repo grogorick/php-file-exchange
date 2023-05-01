@@ -127,7 +127,7 @@ switch ($_GET['action']) {
         $is_template = is_null($file_name);
         ?>
             <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
-              <div class="file-name"><?=$file_name?></div>
+              <div class="file-name"><a download href="<?=DIR . $file_name?>"><?=$file_name?></a></div>
               <div class="file-details">
                 <span class="file-size"><?=$file_name ? file_size($file_name) : ''?></span>
                 <span class="file-time"><?=file_time($file_name)?></span>
