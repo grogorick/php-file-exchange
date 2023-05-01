@@ -154,7 +154,7 @@ function uploadFiles()
           }
         }
         else {
-          for (const [ai, _, [fileError, ...errorArgs]] of responseList) {
+          for (const [ai, serverFile, [fileError, ...errorArgs]] of responseList) {
             const [fileItem, file] = uploadFileItems[ai];
             fileItem.classList.remove('uploading');
 
@@ -165,7 +165,7 @@ function uploadFiles()
             else {
               fileItem.classList.add('success');
               fileItem.querySelector('.download').href += encodeURIComponent(btoa(file.name));
-              fileItem.querySelector('.file-time').innerHTML = currentTimeStr();
+              fileItem.querySelector('.file-time').innerHTML = serverFile.time;
             }
           }
         }
@@ -185,11 +185,6 @@ function fileSizeStr(numBytes)
     numBytes = numBytes >> 10;
   }
   return numBytes + ' GB';
-}
-
-function currentTimeStr()
-{
-  return new Date().toLocaleDateString(LOCALE, { weekday:'long', year:'numeric', month:'short', day:'numeric'});
 }
 
 function xhRequestPost(url, data, progressCallback = null, finishedCallback = null, log = true)

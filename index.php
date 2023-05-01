@@ -94,7 +94,8 @@ switch ($_GET['action']) {
         $response[] = [
             $i,
             [
-              'name' => $file_name
+              'name' => $file_name,
+              'time' => file_time($file_name)
             ],
             [false]
           ];
