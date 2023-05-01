@@ -69,7 +69,8 @@ a {
 	border-top: 1px solid;
 }
 .row.item:hover {
-    box-shadow: 0 0 10pt #8885;
+    box-shadow: 0 0 10pt #8888;
+    z-index: 2;
 }
 
 
