@@ -10,15 +10,15 @@ let fileItemTemplate = fileList.querySelector('#file-item-template');
 fileInput.classList.add('hidden');
 fileInputLabel.classList.remove('hidden');
 
+let startTimeoutToCancelDragDrop = debounce(200, () =>
+{
+  dragDropIndicator.classList.add('hidden');
+});
 on(document, 'dragover', e =>
 {
   e.dataTransfer.dropEffect = 'copy';
   dragDropIndicator.classList.remove('hidden');
-
-  debounce(500, () =>
-  {
-    dragDropIndicator.classList.add('hidden');
-  });
+  startTimeoutToCancelDragDrop();
 });
 
 on(document, 'drop', e =>
@@ -215,8 +215,8 @@ function debounce(timeout, func)
   let timer;
   return (...args) =>
   {
-      clearTimeout(timer);
-      timer = setTimeout(() => { func.apply(this, args); }, timeout);
+    clearTimeout(timer);
+    timer = setTimeout(() => { func.apply(this, args); }, timeout);
   };
 }
 
