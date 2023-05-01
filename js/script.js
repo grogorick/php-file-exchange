@@ -77,7 +77,10 @@ function prepareFilesForUpload(files)
     }
     else {
       let fileExt = file.name.substring(file.name.lastIndexOf('.'));
-      if (!allowedFileExtensions.includes(fileExt)) {
+      if (allowedFileExtensions.length && !allowedFileExtensions.includes(fileExt)) {
+        fileError = L('upload_failed_file_type', fileExt);
+      }
+      else if (prohibitedFileExtensions.includes(fileExt)) {
         fileError = L('upload_failed_file_type', fileExt);
       }
     }

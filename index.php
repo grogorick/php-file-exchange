@@ -11,7 +11,8 @@ if (!in_array(mb_substr($dir, -1), ['\\', '/']))
   $dir += '/';
 define('DIR', $dir);
 
-$allowed_file_extensions = ['.jpg', '.png', '.zip'];
+$allowed_file_extensions = []; // ['.jpg', '.png', '.zip'];
+$prohibited_file_extensions = ['.htm', '.pdf'];
 $max_file_size = null; // 1024 * 1024;
 
 $max_file_size = $max_file_size ?: parse_file_size(ini_get('upload_max_filesize'));
@@ -73,7 +74,12 @@ switch ($_GET['action']) {
         }
 
         $file_ext = strtolower(substr($file_name, strrpos($file_name, '.')));
-        if (!in_array($file_ext, $allowed_file_extensions)) {
+        if (!empty($allowed_file_extensions) && !in_array($file_ext, $allowed_file_extensions)) {
+          $response[] = [$i, null, ['upload_failed_file_type', $file_ext]];
+          continue;
+        }
+
+        if (in_array($file_ext, $prohibited_file_extensions)) {
           $response[] = [$i, null, ['upload_failed_file_type', $file_ext]];
           continue;
         }
@@ -177,7 +183,8 @@ switch ($_GET['action']) {
   <div id="drag-drop-indicator" class="hidden"><div><div><?=L('drop_files')?></div></div></div>
 
   <script>
-    let allowedFileExtensions = ['<?=implode('\', \'', $allowed_file_extensions)?>'];
+    let allowedFileExtensions = [<?=implode(', ', array_map(fn($ext) => '\'' . $ext . '\'', $allowed_file_extensions))?>];
+    let prohibitedFileExtensions = [<?=implode(', ', array_map(fn($ext) => '\'' . $ext . '\'', $prohibited_file_extensions))?>];
     let maxFileSize = <?=$max_file_size?>;
   </script>
   <?=LOCALIZATION\INIT_JS()?>
