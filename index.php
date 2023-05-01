@@ -1,7 +1,7 @@
 <?php
 require('localization/localization.php');
 LOCALIZATION\INIT_FROM_FILE('localization.yaml');
-LOCALIZATION\SET_LOCALE($_GET['lang']);
+LOCALIZATION\SET_LOCALE($_GET['lang'] ?? null);
 use function LOCALIZATION\L;
 
 require('utils.php');
