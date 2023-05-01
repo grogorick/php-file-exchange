@@ -145,7 +145,7 @@ function uploadFiles()
         let responseList = JSON.parse(responseText);
         if (responseList[0] === null) {
           const [uploadError, ...errorArgs] = responseList[2];
-          let errorMsg = L(uploadError, errorArgs);
+          let errorMsg = L(uploadError, ...errorArgs);
 
           for (const [fileItem, _] of uploadFileItems) {
             fileItem.classList.remove('uploading');
@@ -160,7 +160,7 @@ function uploadFiles()
 
             if (fileError) {
               fileItem.classList.add('error');
-              fileItem.querySelector('.file-details').innerHTML = L(fileError, errorArgs);
+              fileItem.querySelector('.file-details').innerHTML = L(fileError, ...errorArgs);
             }
             else {
               fileItem.classList.add('success');

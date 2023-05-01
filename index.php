@@ -50,6 +50,7 @@ switch ($_GET['action']) {
       readfile(DIR . $file_name);
       exit();
     }
+
   case 'upload':
     {
       $response = [];
@@ -67,30 +68,36 @@ switch ($_GET['action']) {
         $file_name = $_FILES['files']['name'][$i];
 
         if ($error_code !== UPLOAD_ERR_OK) {
-          $response[] = [$i, $file_name, ['upload_failed_error_code', $error_code]];
+          $response[] = [$i, null, ['upload_failed_error_code', $error_code]];
           continue;
         }
 
         $file_ext = strtolower(substr($file_name, strrpos($file_name, '.')));
         if (!in_array($file_ext, $allowed_file_extensions)) {
-          $response[] = [$i, $file_name, ['upload_failed_file_type', $file_ext]];
+          $response[] = [$i, null, ['upload_failed_file_type', $file_ext]];
           continue;
         }
 
         $file_size = $_FILES['files']['size'][$i];
         if ($file_size > $max_file_size) {
-          $response[] = [$i, $file_name, ['upload_failed_file_size', file_size_str($file_size), file_size_str($max_file_size)]];
+          $response[] = [$i, null, ['upload_failed_file_size', file_size_str($file_size), file_size_str($max_file_size)]];
           continue;
         }
 
         $file_tmp = $_FILES['files']['tmp_name'][$i];
         $upload_successful = move_uploaded_file($file_tmp, DIR . $file_name);
         if (!$upload_successful) {
-          $response[] = [$i, $file_name, ['upload_failed_move_failed']];
+          $response[] = [$i, null, ['upload_failed_move_failed']];
           continue;
         }
 
-        $response[] = [$i, $file_name, [false]];
+        $response[] = [
+            $i,
+            [
+              'name' => $file_name
+            ],
+            [false]
+          ];
       }
       action_response($response);
     }
