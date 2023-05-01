@@ -5,6 +5,10 @@ precheck_mkdir_failed:
  en: "ERROR: Failed to create upload directory `%s`."
  de: "FEHLER: Zielverzeichnis `%s` konnte nicht erstellt werden!"
 
+download_failed_file_not_found:
+ en: "File not found."
+ de: "Datei nicht gefunden."
+
 upload_failed_error_code:
  en: "Upload failed (error code #%s)."
  de: "Hochladen fehlgeschlagen (Fehlercode #%s)."

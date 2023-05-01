@@ -87,8 +87,7 @@ function prepareFilesForUpload(files)
     newFileItem.classList.remove('hidden');
     fileList.prepend(newFileItem);
 
-    let newSourceName = newFileItem.querySelector('.file-name');
-    newSourceName.innerHTML = file.name;
+    newFileItem.querySelector('.file-name a').innerHTML = file.name;
 
     if (fileError) {
       newFileItem.classList.add('error');
@@ -133,7 +132,6 @@ function uploadFiles()
   xhRequestPost('./?action=upload', formData,
     progress =>
     {
-      console.log(progress.loaded, progress.total);
       let percent = (100 * progress.loaded / progress.total) + '%';
       for (const [fileItem, _] of uploadFileItems) {
         fileItem.style.setProperty('--progress', percent);
@@ -157,7 +155,7 @@ function uploadFiles()
         }
         else {
           for (const [ai, _, [fileError, ...errorArgs]] of responseList) {
-            const [fileItem, _] = uploadFileItems[ai];
+            const [fileItem, file] = uploadFileItems[ai];
             fileItem.classList.remove('uploading');
 
             if (fileError) {
@@ -166,6 +164,7 @@ function uploadFiles()
             }
             else {
               fileItem.classList.add('success');
+              fileItem.querySelector('.download').href += encodeURIComponent(btoa(file.name));
               fileItem.querySelector('.file-time').innerHTML = currentTimeStr();
             }
           }

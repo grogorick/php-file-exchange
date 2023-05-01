@@ -72,3 +72,22 @@ function file_time_str($timestamp)
     }
   }
 }
+
+
+function to_url($file_name)
+{
+  return urlencode(base64_encode($file_name));
+}
+
+function from_url($param)
+{
+  return base64_decode(urldecode($param));
+}
+
+function add_url_params($param_value_array)
+{
+  $arr = $_GET;
+  foreach ($param_value_array as $param => $value)
+    $arr[$param] = $value;
+  return http_build_query($arr);
+}

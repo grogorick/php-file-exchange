@@ -38,6 +38,18 @@ function action_response($data)
 }
 
 switch ($_GET['action']) {
+  case 'download':
+    {
+      $file_name = from_url($_GET['file']);
+      if (strpos($file_name, '/') !== false || strpos($file_name, '\\') !== false || !file_exists(DIR . $file_name))
+        die(L('download_failed_file_not_found'));
+
+      header('Content-Type: application/octet-stream');
+      header('Content-Transfer-Encoding: Binary');
+      header('Content-disposition: attachment; filename="' . $file_name . '"');
+      readfile(DIR . $file_name);
+      exit();
+    }
   case 'upload':
     {
       $response = [];
@@ -108,9 +120,10 @@ switch ($_GET['action']) {
 <body>
 
   <?php
-    $_GET['action'] = 'upload';
-    $_GET['no-js'] = '';
-    $url = http_build_query($_GET);
+    $url = add_url_params([
+      'action' => 'upload',
+      'no-js' => ''
+    ]);
   ?>
   <form id="file-upload-form" action="./?<?=$url?>" method="post" enctype="multipart/form-data">
     <div class="row">
@@ -125,9 +138,13 @@ switch ($_GET['action']) {
       function file_element($file_name = null)
       {
         $is_template = is_null($file_name);
+        $url = add_url_params([
+          'action' => 'download',
+          'file' => is_null($file_name) ? '' : to_url($file_name)
+        ]);
         ?>
             <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
-              <div class="file-name"><a download href="<?=DIR . $file_name?>"><?=$file_name?></a></div>
+              <div class="file-name"><a class="download" download href="./?<?=$url?>"><?=$file_name?></a></div>
               <div class="file-details">
                 <span class="file-size"><?=$is_template ? '' : file_size($file_name)?></span>
                 <span class="file-time"><?=$is_template ? '' : file_time($file_name)?></span>
