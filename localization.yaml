@@ -5,7 +5,7 @@ precheck_mkdir_failed:
  en: "ERROR: Failed to create upload directory `%s`."
  de: "FEHLER: Zielverzeichnis `%s` konnte nicht erstellt werden!"
 
-download_failed_file_not_found:
+file_not_found:
  en: "File not found."
  de: "Datei nicht gefunden."
 
@@ -37,6 +37,13 @@ drop_files:
 upload:
  en: "Upload"
  de: "Hochladen"
+
+file_could_not_be_deleted:
+ en: "File could not be deleted."
+ de: "Datei konnte nicht gelöscht werden."
+file_deleted:
+ en: "Deleted:"
+ de: "Gelöscht:"
 
 empty:
  en: "Empty"

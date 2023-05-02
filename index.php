@@ -43,7 +43,7 @@ switch ($_GET['action']) {
     {
       $file_name = from_url($_GET['file']);
       if (strpos($file_name, '/') !== false || strpos($file_name, '\\') !== false || !file_exists(DIR . $file_name))
-        die(L('download_failed_file_not_found'));
+        die(L('file_not_found'));
 
       header('Content-Type: application/octet-stream');
       header('Content-Transfer-Encoding: Binary');
@@ -100,7 +100,7 @@ switch ($_GET['action']) {
         $response[] = [
             $i,
             [
-              'name' => $file_name,
+              'url_name' => to_url($file_name),
               'time' => file_time($file_name)
             ],
             [false]
@@ -109,12 +109,24 @@ switch ($_GET['action']) {
       action_response($response);
     }
 
-  case 'deleteSource':
+  case 'delete':
     {
-      $file_name = $_GET['delete'];
-      $file_path = DIR . $file_name;
-      unset($file_path);
-      action_response([$file_name]);
+      if (isset($_POST['file']))
+        $files = [$_POST['file']];
+      else
+        $files = $_POST['files'];
+
+      $response = [];
+      foreach ($files as $i => &$url_file_name) {
+        $file_name = from_url($url_file_name);
+        if (!file_exists(DIR . $file_name))
+          $response[] = [$i, ['name' => $file_name], ['file_not_found']];
+        else if (!unlink(DIR . $file_name))
+          $response[] = [$i, ['name' => $file_name], ['file_could_not_be_deleted']];
+        else
+          $response[] = [$i, ['name' => $file_name], [false]];
+      }
+      action_response($response);
     }
 
   default:
@@ -133,13 +145,15 @@ switch ($_GET['action']) {
 
 <body>
 
+  <div id="messages"></div>
+
   <?php
-    $url = add_url_params([
+    $url_upload = add_url_params([
       'action' => 'upload',
       'no-js' => ''
     ]);
   ?>
-  <form id="file-upload-form" action="./?<?=$url?>" method="post" enctype="multipart/form-data">
+  <form id="file-upload-form" action="./?<?=$url_upload?>" method="post" enctype="multipart/form-data">
     <div class="row">
       <input id="file-input" class="button" type="file" name="files[]" multiple>
       <label for="file-input" class="button hidden"><?=L('select_files')?></label>
@@ -152,16 +166,26 @@ switch ($_GET['action']) {
       function file_element($file_name = null)
       {
         $is_template = is_null($file_name);
-        $url = add_url_params([
+        $url_download = add_url_params([
           'action' => 'download',
           'file' => is_null($file_name) ? '' : to_url($file_name)
         ]);
+        $url_delete = add_url_params([
+          'action' => 'delete',
+          'no-js' => ''
+        ]);
         ?>
             <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
-              <div class="file-name"><a class="download" download href="./?<?=$url?>"><?=$file_name?></a></div>
+              <div class="file-name"><a class="download" download href="./?<?=$url_download?>"><?=$file_name?></a></div>
               <div class="file-details">
                 <span class="file-size"><?=$is_template ? '' : file_size($file_name)?></span>
                 <span class="file-time"><?=$is_template ? '' : file_time($file_name)?></span>
+              </div>
+              <div class="file-delete">
+                <form action="./?<?=$url_delete?>" method="post">
+                  <input type="hidden" name="file" value="<?=to_url($file_name)?>">
+                  <input class="button" type="submit" value="X">
+                </form>
               </div>
             </div>
         <?php

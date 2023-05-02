@@ -89,10 +89,30 @@ a {
 }
 
 
+.file-delete {
+    padding-left: 20pt;
+    margin-top: -3pt;
+}
+.file-delete input {
+    border-radius: 50%;
+    width: 20pt;
+    height: 20pt;
+    line-height: 0;
+    font-weight: bold;
+    color: #8888;
+    border: 1px solid #8888;
+    box-shadow: none;
+}
+.file-delete input:hover {
+    color: #000;
+    border: 1px solid #000;
+}
+
+
 .prepared {
 	background: #bbb;
 }
-.uploading {
+.processing {
 	background: #bdf;
 }
 .error {
@@ -101,7 +121,7 @@ a {
 .success {
 	background: #dfd;
 }
-.uploading .file-name::after {
+.processing .file-name::after {
 	content: '';
     --size: 19pt;
     height: var(--size);
@@ -119,7 +139,7 @@ a {
 	content: '\2713';
 	color: green;
 }
-.uploading .file-name::after,
+.processing .file-name::after,
 .error .file-name::after,
 .success .file-name::after {
 	display: inline-block;
@@ -157,4 +177,20 @@ a {
 	font-size: 5vw;
 	font-weight: bold;
 	color: #8886;
+}
+
+
+#messages {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30pt;
+    background: radial-gradient(#fff 50%, transparent);
+    border: 1px solid #8884;
+    border-radius: 10pt;
+    backdrop-filter: blur(2px);
+}
+#messages:empty {
+	display: none;
 }

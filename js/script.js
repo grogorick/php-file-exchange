@@ -1,3 +1,4 @@
+let messagesBox = document.querySelector('#messages');
 let dragDropIndicator = document.querySelector('#drag-drop-indicator');
 let fileInput = document.querySelector('#file-input');
 let fileInputLabel = document.querySelector('#file-input + label');
@@ -50,6 +51,48 @@ window.onbeforeunload = () =>
     return L('warning_close_while_uploading');
   }
 };
+
+fileList.querySelectorAll('.row.item').forEach(prepareFileDeleteForm);
+function prepareFileDeleteForm(fileItem)
+{
+  on(fileItem.querySelector('.file-delete form'), 'submit', () =>
+  {
+    deleteFiles([fileItem]);
+  });
+}
+
+function deleteFiles(fileItems)
+{
+  let formData = new FormData();
+  let deleteFileItems = [];
+  for (const fileItem of fileItems) {
+    let fileName = fileItem.querySelector('.file-delete input[name="file"]').value;
+    formData.append('files[]', fileName);
+    deleteFileItems.push([fileItem, fileName]);
+    fileItem.classList.add('processing');
+  }
+  xhRequestPost('./?action=delete', formData, null,
+    responseText =>
+    {
+      if (responseText.length) {
+        let responseList = JSON.parse(responseText);
+        for (const [di, serverFile, [fileError, ...errorArgs]] of responseList) {
+          const [fileItem, fileName] = deleteFileItems[di];
+          fileItem.classList.remove('processing');
+
+          if (fileError) {
+            fileItem.classList.add('error');
+            fileItem.querySelector('.file-details').innerHTML = L(fileError, ...errorArgs);
+          }
+          else {
+            fileItem.remove();
+            showMessage(L('file_deleted') + ' `' + serverFile.name + '`');
+          }
+        }
+      }
+    },
+    true);
+}
 
 function cleanupPreviousUploadItems()
 {
@@ -125,7 +168,7 @@ function uploadFiles()
       formData.append('files[]', file);
       uploadFileItems.push([fileItem, file]);
       fileItem.classList.remove('prepared');
-      fileItem.classList.add('uploading');
+      fileItem.classList.add('processing');
     }
     else
       break;
@@ -151,15 +194,15 @@ function uploadFiles()
           let errorMsg = L(uploadError, ...errorArgs);
 
           for (const [fileItem, _] of uploadFileItems) {
-            fileItem.classList.remove('uploading');
+            fileItem.classList.remove('processing');
             fileItem.classList.add('error');
             fileItem.querySelector('.file-details').innerHTML = errorMsg;
           }
         }
         else {
           for (const [ai, serverFile, [fileError, ...errorArgs]] of responseList) {
-            const [fileItem, file] = uploadFileItems[ai];
-            fileItem.classList.remove('uploading');
+            const [fileItem, _] = uploadFileItems[ai];
+            fileItem.classList.remove('processing');
 
             if (fileError) {
               fileItem.classList.add('error');
@@ -167,8 +210,10 @@ function uploadFiles()
             }
             else {
               fileItem.classList.add('success');
-              fileItem.querySelector('.download').href += encodeURIComponent(btoa(file.name));
+              fileItem.querySelector('.download').href += serverFile.url_name;
               fileItem.querySelector('.file-time').innerHTML = serverFile.time;
+              fileItem.querySelector('.file-delete input[name="file"]').value = serverFile.url_name;
+              prepareFileDeleteForm(fileItem);
             }
           }
         }
@@ -228,4 +273,13 @@ function on(element, event_name, callback)
     evt.preventDefault();
     callback(evt);
   });
+}
+
+function showMessage(msg)
+{
+  let div = document.createElement('div');
+  div.innerHTML = msg;
+  messagesBox.prepend(div);
+
+  setTimeout(() => div.remove(), 10000);
 }
