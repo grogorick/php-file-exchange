@@ -54,8 +54,8 @@ window.onbeforeunload = () =>
 function cleanupPreviousUploadItems()
 {
   fileUploadButton.classList.add('hidden');
-  fileList.querySelectorAll('.item-row.success').forEach(el => el.classList.remove('success'));
-  fileList.querySelectorAll('.item-row.prepared, .item-row.error').forEach(el => el.remove());
+  fileList.querySelectorAll('.row.item.success').forEach(el => el.classList.remove('success'));
+  fileList.querySelectorAll('.row.item.prepared, .row.item.error').forEach(el => el.remove());
 }
 
 let selectedFiles = [];
