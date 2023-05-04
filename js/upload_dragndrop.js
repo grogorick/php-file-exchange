@@ -1,6 +1,6 @@
-let dragDropIndicator = document.querySelector('#drag-drop-indicator');
+const dragDropIndicator = document.querySelector('#drag-drop-indicator');
 
-let startTimeoutToCancelDragDrop = debounce(200, () =>
+const startTimeoutToCancelDragDrop = debounce(200, () =>
 {
   dragDropIndicator.classList.add('hidden');
 });

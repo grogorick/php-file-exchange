@@ -10,10 +10,10 @@ function prepareFileDeleteForm(fileItem)
 
 function deleteFiles(fileItems)
 {
-  let formData = new FormData();
-  let deleteFileItems = [];
+  const formData = new FormData();
+  const deleteFileItems = [];
   for (const fileItem of fileItems) {
-    let fileName = fileItem.querySelector('.file-delete input[name="file"]').value;
+    const fileName = fileItem.querySelector('.file-delete input[name="file"]').value;
     formData.append('files[]', fileName);
     deleteFileItems.push([fileItem, fileName]);
     fileItem.classList.add('processing');
@@ -22,7 +22,7 @@ function deleteFiles(fileItems)
     responseText =>
     {
       if (responseText.length) {
-        let responseList = JSON.parse(responseText);
+        const responseList = JSON.parse(responseText);
         for (const [di, serverFile, [fileError, ...errorArgs]] of responseList) {
           const [fileItem, fileName] = deleteFileItems[di];
           fileItem.classList.remove('processing');

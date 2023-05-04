@@ -1,6 +1,6 @@
 function fileSizeStr(numBytes)
 {
-  for (prefix of ['', 'K', 'M']) {
+  for (const prefix of ['', 'K', 'M']) {
     if (numBytes < 1024) {
       return numBytes + ' ' + prefix + 'B';
     }
@@ -11,7 +11,7 @@ function fileSizeStr(numBytes)
 
 function xhRequestPost(url, data, progressCallback = null, finishedCallback = null, log = true)
 {
-  let xhr = new XMLHttpRequest();
+  const xhr = new XMLHttpRequest();
   if (progressCallback !== null)
     xhr.upload.addEventListener('progress', progressCallback);
   xhr.onreadystatechange = () =>
@@ -51,7 +51,7 @@ function on(element, event_name, callback)
 
 function showMessage(msg)
 {
-  let div = document.createElement('div');
+  const div = document.createElement('div');
   div.innerHTML = msg;
   document.querySelector('#messages').prepend(div);
 

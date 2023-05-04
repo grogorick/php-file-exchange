@@ -1,9 +1,9 @@
-let fileInput = document.querySelector('#file-input');
-let fileInputLabel = document.querySelector('#file-input + label');
-let fileUploadForm = document.querySelector('#file-upload-form');
-let fileUploadButton = fileUploadForm.querySelector('input[type="submit"]');
-let fileList = document.querySelector('#file-list');
-let fileItemTemplate = fileList.querySelector('#file-item-template');
+const fileInput = document.querySelector('#file-input');
+const fileInputLabel = document.querySelector('#file-input + label');
+const fileUploadForm = document.querySelector('#file-upload-form');
+const fileUploadButton = fileUploadForm.querySelector('input[type="submit"]');
+const fileList = document.querySelector('#file-list');
+const fileItemTemplate = fileList.querySelector('#file-item-template');
 
 fileInput.classList.add('hidden');
 fileInputLabel.classList.remove('hidden');
@@ -46,7 +46,7 @@ function prepareFilesForUpload(files)
   approvedFiles = [];
 
   for (let i = 0; i < files.length; ++i) {
-    let file = files[i];
+    const file = files[i];
 
     let fileError = false;
     if (file.size === 0) {
@@ -56,7 +56,7 @@ function prepareFilesForUpload(files)
       fileError = L('upload_failed_file_size', fileSizeStr(file.size), fileSizeStr(maxFileSize));
     }
     else {
-      let fileExt = file.name.substring(file.name.lastIndexOf('.'));
+      const fileExt = file.name.substring(file.name.lastIndexOf('.'));
       if (allowedFileExtensions.length && !allowedFileExtensions.includes(fileExt)) {
         fileError = L('upload_failed_file_type', fileExt);
       }
@@ -65,7 +65,7 @@ function prepareFilesForUpload(files)
       }
     }
 
-    let newFileItem = fileItemTemplate.cloneNode(true);
+    const newFileItem = fileItemTemplate.cloneNode(true);
     newFileItem.removeAttribute('id');
     newFileItem.classList.remove('hidden');
     fileList.prepend(newFileItem);
@@ -94,13 +94,13 @@ function uploadFiles()
 
   isUploading = true;
 
-  let formData = new FormData();
-  let uploadFileItems = [];
+  const formData = new FormData();
+  const uploadFileItems = [];
   let accuFileSize = 0;
   let i = 0;
   for (; i < approvedFiles.length; ++i) {
     const [si, fileItem] = approvedFiles[i];
-    let file = selectedFiles[si];
+    const file = selectedFiles[si];
     if ((accuFileSize += file.size) < maxFileSize) {
       formData.append('files[]', file);
       uploadFileItems.push([fileItem, file]);
@@ -115,7 +115,7 @@ function uploadFiles()
   xhRequestPost('./?action=upload', formData,
     progress =>
     {
-      let percent = (100 * progress.loaded / progress.total) + '%';
+      const percent = (100 * progress.loaded / progress.total) + '%';
       for (const [fileItem, _] of uploadFileItems) {
         fileItem.style.setProperty('--progress', percent);
       }
@@ -125,10 +125,10 @@ function uploadFiles()
       isUploading = false;
 
       if (responseText.length) {
-        let responseList = JSON.parse(responseText);
+        const responseList = JSON.parse(responseText);
         if (responseList[0] === null) {
           const [uploadError, ...errorArgs] = responseList[2];
-          let errorMsg = L(uploadError, ...errorArgs);
+          const errorMsg = L(uploadError, ...errorArgs);
 
           for (const [fileItem, _] of uploadFileItems) {
             fileItem.classList.remove('processing');
