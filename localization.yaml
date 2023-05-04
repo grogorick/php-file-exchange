@@ -24,6 +24,9 @@ upload_failed_server_upload_size:
 upload_failed_file_size:
  en: "File too large (%s | max. %s)."
  de: "Datei zu groß (%s | max. %s)."
+upload_failed_disk_quota:
+ en: "Disk quota exceeded (%s | %s remaining)."
+ de: "Speicherplatz aufgebraucht (%s | %s übrig)."
 upload_failed_move_failed:
  en: "Storing file in upload directory failed."
  de: "Datei konnte nicht in Zielverzeichnis verschoben werden."

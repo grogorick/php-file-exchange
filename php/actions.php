@@ -42,6 +42,8 @@ switch ($_GET['action']) {
         action_response([null, null, [$err_msg]]); // any other error
       }
 
+      $used_disk_space = used_disk_space();
+
       foreach ($_FILES['files']['error'] as $i => $error_code) {
         $file_name = $_FILES['files']['name'][$i];
 
@@ -64,6 +66,11 @@ switch ($_GET['action']) {
         $file_size = $_FILES['files']['size'][$i];
         if ($file_size > $max_file_size) {
           $response[] = [$i, null, ['upload_failed_file_size', file_size_str($file_size), file_size_str($max_file_size)]];
+          continue;
+        }
+
+        if (($used_disk_space + $file_size) > $disk_quota) {
+          $response[] = [$i, null, ['upload_failed_disk_quota', file_size_str($file_size), file_size_str($disk_quota - $used_disk_space)]];
           continue;
         }
 
