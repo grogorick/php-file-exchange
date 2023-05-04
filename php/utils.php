@@ -7,13 +7,13 @@ function file_size($file_name)
 
 function file_size_str($num_bytes)
 {
-  foreach (['', 'K', 'M'] as $prefix) {
+  foreach (['', 'K', 'M', 'G'] as $prefix) {
     if ($num_bytes < 1024) {
-      return $num_bytes . ' ' . $prefix . 'B';
+      return round($num_bytes, 2) . ' ' . $prefix . 'B';
     }
-    $num_bytes = $num_bytes >> 10;
+    $num_bytes /= 1024;
   }
-  return $num_bytes . ' GB';
+  return $num_bytes . ' TB';
 }
 
 function parse_file_size($file_size)
