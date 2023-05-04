@@ -17,13 +17,7 @@ on(fileInput, 'change', () =>
 {
   cleanupPreviousUploadItems();
   if (prepareFilesForUpload(fileInput.files))
-    fileUploadButton.classList.remove('hidden');
-});
-
-on(fileUploadForm, 'submit', () =>
-{
-  fileUploadButton.classList.add('hidden');
-  uploadFiles();
+    uploadFiles();
 });
 
 window.onbeforeunload = () =>
