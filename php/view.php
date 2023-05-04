@@ -81,7 +81,10 @@ use function LOCALIZATION\L;
     let maxFileSize = <?=$max_file_size?>;
   </script>
   <?=LOCALIZATION\INIT_JS()?>
-  <script src="js/script.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/upload.js"></script>
+  <script src="js/upload_dragndrop.js"></script>
+  <script src="js/delete.js"></script>
 
 </body>
 </html>
