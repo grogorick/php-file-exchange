@@ -28,15 +28,12 @@ upload_failed_move_failed:
  en: "Storing file in upload directory failed."
  de: "Datei konnte nicht in Zielverzeichnis verschoben werden."
 
-select_files:
- en: "Select files"
- de: "Dateien auswählen"
 drop_files:
  en: "Drop file(s) to upload"
  de: "Dateien zum Hochladen ablegen"
 upload:
- en: "Upload"
- de: "Hochladen"
+ en: "Start upload"
+ de: "Hochladen starten"
 
 file_could_not_be_deleted:
  en: "File could not be deleted."

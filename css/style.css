@@ -39,8 +39,18 @@ a {
 
 
 #file-upload-form {
-	margin-top: 10pt;
-	margin-bottom: 20pt;
+	position: fixed;
+	bottom: 10pt;
+	right: 10pt;
+}
+#file-upload-form label[for="file-input"] {
+	border-radius: 50%;
+	box-sizing: content-box;
+	width: 1rem;
+	height: 1rem;
+	padding: 10pt;
+	text-align: center;
+	font-weight: bold;
 }
 
 

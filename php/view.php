@@ -25,7 +25,7 @@ use function LOCALIZATION\L;
   <form id="file-upload-form" action="./?<?=$url_upload?>" method="post" enctype="multipart/form-data">
     <div class="row">
       <input id="file-input" class="button" type="file" name="files[]" multiple>
-      <label for="file-input" class="button hidden"><?=L('select_files')?></label>
+      <label for="file-input" class="button hidden">+</label>
       <input type="submit" class="button" value="<?=L('upload')?>">
     </div>
   </form>
