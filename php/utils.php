@@ -40,6 +40,15 @@ function parse_file_size($file_size)
     return intval($file_size);
 }
 
+function used_disk_space()
+{
+  $size = 0;
+  foreach (glob(DIR . '*') as $file)
+    if (is_file($file))
+      $size += filesize($file);
+  return $size;
+}
+
 
 function file_time($file_name)
 {

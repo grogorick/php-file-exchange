@@ -30,6 +30,10 @@ use function LOCALIZATION\L;
     </div>
   </form>
 
+  <div id="overview" class="row">
+    <?=file_size_str(used_disk_space())?> / <?=file_size_str($disk_quota)?>
+  </div>
+
   <div id="file-list">
     <?php
       function file_element($file_name = null)
@@ -37,7 +41,7 @@ use function LOCALIZATION\L;
         $is_template = is_null($file_name);
         $url_download = add_url_params([
           'action' => 'download',
-          'file' => is_null($file_name) ? '' : to_url($file_name)
+          'file' => $is_template ? '' : to_url($file_name)
         ]);
         $url_delete = add_url_params([
           'action' => 'delete',

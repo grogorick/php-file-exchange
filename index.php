@@ -14,11 +14,14 @@ require('php/utils.php');
 $allowed_file_extensions = []; // ['.jpg', '.png', '.zip'];
 $prohibited_file_extensions = ['.htm', '.pdf'];
 $max_file_size = null; // '10M';
+$disk_quota = '100M';
 
 if (is_null($max_file_size))
   $max_file_size = parse_file_size(ini_get('upload_max_filesize'));
 else
   $max_file_size = parse_file_size($max_file_size);
+
+$disk_quota = parse_file_size($disk_quota);
 
 if (!is_dir(DIR)) {
   if (file_exists((DIR)))

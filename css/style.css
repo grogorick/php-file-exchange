@@ -59,6 +59,13 @@ a {
 }
 
 
+#overview {
+	text-align: right;
+	padding-right: 60pt;
+	background: #8882;
+}
+
+
 .empty {
 	border: none;
 	font-style: italic;
