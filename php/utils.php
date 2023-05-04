@@ -43,9 +43,8 @@ function parse_file_size($file_size)
 function used_disk_space()
 {
   $size = 0;
-  foreach (glob(DIR . '*') as $file)
-    if (is_file($file))
-      $size += filesize($file);
+  foreach (FILES as $file)
+    $size += filesize(DIR . $file);
   return $size;
 }
 

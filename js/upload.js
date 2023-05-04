@@ -55,6 +55,9 @@ function prepareFilesForUpload(files)
     else if (file.size > maxFileSize) {
       fileError = L('upload_failed_file_size', fileSizeStr(file.size), fileSizeStr(maxFileSize));
     }
+    else if ((usedDiskSpace + file.size) > diskQuota) {
+      fileError = L('upload_failed_disk_quota', fileSizeStr(file.size), fileSizeStr(diskQuota - usedDiskSpace));
+    }
     else {
       const fileExt = file.name.substring(file.name.lastIndexOf('.'));
       if (allowedFileExtensions.length && !allowedFileExtensions.includes(fileExt)) {

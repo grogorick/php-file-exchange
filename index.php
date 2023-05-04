@@ -9,6 +9,8 @@ if (!in_array(mb_substr($dir, -1), ['\\', '/']))
   $dir += '/';
 define('DIR', $dir);
 
+define('FILES', array_filter(scandir(DIR), fn($file) => is_file(DIR . $file)));
+
 require('php/utils.php');
 
 $allowed_file_extensions = []; // ['.jpg', '.png', '.zip'];

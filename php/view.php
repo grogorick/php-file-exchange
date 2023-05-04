@@ -1,6 +1,8 @@
 <?php
 use function LOCALIZATION\L;
 
+$used_disk_space = used_disk_space();
+
 ?>
 <!DOCTYPE html>
 <html lang="de" xml:lang="de">
@@ -30,9 +32,7 @@ use function LOCALIZATION\L;
     </div>
   </form>
 
-  <div id="overview" class="row">
-    <?=file_size_str(used_disk_space())?> / <?=file_size_str($disk_quota)?>
-  </div>
+  <div id="overview" class="row"><?=file_size_str($used_disk_space)?> / <?=file_size_str($disk_quota)?></div>
 
   <div id="file-list">
     <?php
@@ -65,10 +65,8 @@ use function LOCALIZATION\L;
         <?php
       }
 
-      $files = scandir(DIR);
-      foreach ($files as $file_name)
-        if (is_file(DIR . $file_name))
-          file_element($file_name);
+      foreach (FILES as $file_name)
+        file_element($file_name);
 
       file_element();
     ?>
@@ -82,6 +80,8 @@ use function LOCALIZATION\L;
     let allowedFileExtensions = [<?=implode(', ', array_map(fn($ext) => '\'' . $ext . '\'', $allowed_file_extensions))?>];
     let prohibitedFileExtensions = [<?=implode(', ', array_map(fn($ext) => '\'' . $ext . '\'', $prohibited_file_extensions))?>];
     let maxFileSize = <?=$max_file_size?>;
+    let usedDiskSpace = <?=$used_disk_space?>;
+    let diskQuota = <?=$disk_quota?>;
   </script>
   <?=LOCALIZATION\INIT_JS()?>
   <script src="js/utils.js"></script>
