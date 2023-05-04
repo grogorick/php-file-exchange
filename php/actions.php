@@ -94,7 +94,7 @@ switch ($_GET['action']) {
         $files = $_POST['files'];
 
       $response = [];
-      foreach ($files as $i => &$url_file_name) {
+      foreach ($files as $i => $url_file_name) {
         $file_name = from_url($url_file_name);
         if (!file_exists(DIR . $file_name))
           $response[] = [$i, ['name' => $file_name], ['file_not_found']];
