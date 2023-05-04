@@ -18,19 +18,20 @@ function file_size_str($num_bytes)
 
 function parse_file_size($file_size)
 {
+  if (is_int($file_size))
+    return $file_size;
+
   if (function_exists('ini_parse_quantity'))
     return ini_parse_quantity($file_size);
 
-  if (preg_match('/([0-9]+)([.][0-9]*)?([KkMmGg])/', $file_size, $match)) {
+  if (preg_match('/([0-9]+)([.][0-9]*)?([KMGT])/', strtoupper($file_size), $match)) {
     [$_, $num, $_, $mod] = $match;
     $num = intval($num);
     switch ($mod) {
-      case 'G':
-      case 'g': $num *= 1024;
-      case 'M':
-      case 'm': $num *= 1024;
-      case 'K':
-      case 'k': $num *= 1024;
+      case 'T': $num *= 1024;
+      case 'G': $num *= 1024;
+      case 'M': $num *= 1024;
+      case 'K': $num *= 1024;
       default:
     }
     return $num;
