@@ -2,11 +2,11 @@ function fileSizeStr(numBytes)
 {
   for (const prefix of ['', 'K', 'M']) {
     if (numBytes < 1024) {
-      return numBytes + ' ' + prefix + 'B';
+      return (Math.round(numBytes * 100) / 100) + ' ' + prefix + 'B';
     }
-    numBytes = numBytes >> 10;
+    numBytes /= 1024;
   }
-  return numBytes + ' GB';
+  return (Math.round(numBytes * 100) / 100) + ' GB';
 }
 
 function xhRequestPost(url, data, progressCallback = null, finishedCallback = null, log = true)

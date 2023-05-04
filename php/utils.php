@@ -13,7 +13,7 @@ function file_size_str($num_bytes)
     }
     $num_bytes /= 1024;
   }
-  return $num_bytes . ' TB';
+  return round($num_bytes, 2) . ' TB';
 }
 
 function parse_file_size($file_size)
