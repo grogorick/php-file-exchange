@@ -15,13 +15,13 @@ use function LOCALIZATION\L;
 <body>
 
   <div id="messages"></div>
-
   <?php
     $url_upload = add_url_params([
       'action' => 'upload',
       'no-js' => ''
     ]);
   ?>
+
   <form id="file-upload-form" action="./?<?=$url_upload?>" method="post" enctype="multipart/form-data">
     <div class="row">
       <input id="file-input" class="button" type="file" name="files[]" multiple>
@@ -44,19 +44,20 @@ use function LOCALIZATION\L;
           'no-js' => ''
         ]);
         ?>
-            <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
-              <div class="file-name"><a class="download" download href="./?<?=$url_download?>"><?=$file_name?></a></div>
-              <div class="file-details">
-                <span class="file-size"><?=$is_template ? '' : file_size($file_name)?></span>
-                <span class="file-time"><?=$is_template ? '' : file_time($file_name)?></span>
-              </div>
-              <div class="file-delete">
-                <form action="./?<?=$url_delete?>" method="post">
-                  <input type="hidden" name="file" value="<?=to_url($file_name)?>">
-                  <input class="button" type="submit" value="X">
-                </form>
-              </div>
-            </div>
+
+    <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
+      <div class="file-name"><a class="download" download href="./?<?=$url_download?>"><?=$file_name?></a></div>
+      <div class="file-details">
+        <span class="file-size"><?=$is_template ? '' : file_size($file_name)?></span>
+        <span class="file-time"><?=$is_template ? '' : file_time($file_name)?></span>
+      </div>
+      <div class="file-delete">
+        <form action="./?<?=$url_delete?>" method="post">
+          <input type="hidden" name="file" value="<?=to_url($file_name)?>">
+          <input class="button" type="submit" value="X">
+        </form>
+      </div>
+    </div>
         <?php
       }
 
@@ -68,9 +69,7 @@ use function LOCALIZATION\L;
       file_element();
     ?>
 
-    <div class="row empty">
-      <?=L('empty')?>
-    </div>
+    <div class="row empty"><?=L('empty')?></div>
   </div>
 
   <div id="drag-drop-indicator" class="hidden"><div><div><?=L('drop_files')?></div></div></div>
