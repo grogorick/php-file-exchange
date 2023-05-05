@@ -1,9 +1,9 @@
-precheck_path_is_file:
- en: "ERROR: Upload path `%s` points to a file instead of a directory!"
- de: "FEHLER: Zielpfad `%s` zeigt auf eine Datei statt auf ein Verzeichnis!"
-precheck_mkdir_failed:
- en: "ERROR: Failed to create upload directory `%s`."
- de: "FEHLER: Zielverzeichnis `%s` konnte nicht erstellt werden!"
+precheck_directory_not_found:
+ en: "ERROR: Upload directory `%s` not found!"
+ de: "FEHLER: Zielpfad `%s` nicht gefunden!"
+precheck_directory_not_writable:
+ en: "ERROR: No write permission for upload directory `%s`!"
+ de: "FEHLER: Keine Schreibrechte für das Zielverzeichnis `%s`!"
 
 file_not_found:
  en: "File not found."
