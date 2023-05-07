@@ -40,6 +40,12 @@ function parse_file_size($file_size)
     return intval($file_size);
 }
 
+function try_get_server_upload_max_filesize()
+{
+  $val = ini_get('upload_max_filesize');
+  return ($val !== false) ? parse_file_size($val) : null;
+}
+
 function used_disk_space()
 {
   $size = 0;

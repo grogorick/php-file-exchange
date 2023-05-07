@@ -26,10 +26,10 @@ $disk_quota = '100M';
 
 require('php/utils.php');
 
-if (is_null($max_file_size))
-  $max_file_size = parse_file_size(ini_get('upload_max_filesize'));
-else
+if (!is_null($max_file_size))
   $max_file_size = parse_file_size($max_file_size);
+else
+  $max_file_size = try_get_server_upload_max_filesize();
 
 $disk_quota = parse_file_size($disk_quota);
 
