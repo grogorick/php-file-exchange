@@ -50,7 +50,8 @@ use function LOCALIZATION\L;
         if (is_null($id)) {
           ?>
 
-        <input type="text" name="dir" autofocus>
+        <input type="text" name="dir" autofocus autocomplete="off" list="relative_directories">
+        <datalist id="relative_directories"><option value="test123"></datalist>
         <span class="dir-check"></span>
             <?php
           } else {

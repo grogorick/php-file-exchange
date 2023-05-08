@@ -5,6 +5,21 @@ if (isset($_GET['action-json'])) {
   header('Content-Type: application/json; charset=utf-8');
 
   switch ($_GET['action-json']) {
+    case 'ls':
+      {
+        $ls = scandir(from_url($_GET['dir']));
+        if ($ls === false)
+          echo 'false';
+        else
+          echo json_encode(
+            array_values(array_filter(
+              $ls,
+              fn($dir) => !str_contains('.@', $dir[0])
+            ))
+          );
+      }
+      break;
+
     case 'check':
       {
         echo json_encode(check_dir(from_url($_GET['dir'])));
