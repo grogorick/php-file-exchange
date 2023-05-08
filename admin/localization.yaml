@@ -1,0 +1,21 @@
+new_directory:
+ en: "Setup new upload directory"
+ de: "Neues Zielverzeichnis einrichten"
+upload_directory:
+ en: "Upload directory"
+ de: "Zielverzeichnis"
+allowed_file_extensions:
+ en: "Allow only these file types"
+ de: "Nur diese Dateitypen zulassen"
+prohibited_file_extensions:
+ en: "Allow all but these file types"
+ de: "Alle außer diesen Dateitypen zulassen"
+max_file_size:
+ en: "Maximum file size"
+ de: "Maximale Dateigröße"
+disk_quota:
+ en: "Maximum disk quota for this directory"
+ de: "Maximaler Speicherplatz für dieses Verzeichnis"
+save:
+ en: "Save"
+ de: "Speichern"
