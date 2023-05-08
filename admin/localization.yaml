@@ -1,6 +1,9 @@
 new_directory:
  en: "Setup new upload directory"
  de: "Neues Zielverzeichnis einrichten"
+edit_directories:
+ en: "Adjust upload directories"
+ de: "Zielverzeichnisse anpassen"
 upload_directory:
  en: "Upload directory"
  de: "Zielverzeichnis"
