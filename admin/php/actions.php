@@ -1,6 +1,20 @@
 <?php
 use function LOCALIZATION\L;
 
+if (isset($_GET['action-json'])) {
+  header('Content-Type: application/json; charset=utf-8');
+
+  switch ($_GET['action-json']) {
+    case 'check':
+      {
+        echo json_encode(check_dir(from_url($_GET['dir'])));
+      }
+      break;
+  }
+
+  exit();
+}
+
 if (isset($_GET['action'])) {
   switch ($_GET['action']) {
     case 'save':

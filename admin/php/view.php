@@ -51,6 +51,7 @@ use function LOCALIZATION\L;
           ?>
 
         <input type="text" name="dir" autofocus>
+        <span class="dir-check"></span>
             <?php
           } else {
             ?>
@@ -108,5 +109,8 @@ use function LOCALIZATION\L;
       dir_config($id, $conf);
     ?>
   </div>
+  <?=LOCALIZATION\INIT_JS()?>
+  <script src="../js/utils.js"></script>
+  <script src="js/script.js"></script>
 </body>
 </html>
