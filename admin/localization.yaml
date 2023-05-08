@@ -19,3 +19,13 @@ disk_quota:
 save:
  en: "Save"
  de: "Speichern"
+
+not_a_directory:
+ en: "`%s` is not a directory!"
+ de: "`%s` ist kein Verzeichnis!"
+no_read_access:
+ en: "No read access to directory `%s`!"
+ de: "Kein Lesezugriff auf Verzeichnis `%s`!"
+no_write_access:
+ en: "No write access to directory `%s`!"
+ de: "Kein Schreibzugriff auf Verzeichnis `%s`!"
