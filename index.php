@@ -5,10 +5,11 @@ LOCALIZATION\SET_LOCALE($_GET['lang'] ?? null);
 use function LOCALIZATION\L;
 
 
-$dir = $_GET['dir'] ?? 'FILES';
-if (!in_array(mb_substr($dir, -1), ['\\', '/']))
-  $dir .= '/';
-define('DIR', $dir);
+require('php/config.php');
+DirectoryConfig::load('./');
+$conf = DirectoryConfig::get($_GET['dir']);
+
+define('DIR', $conf['dir']);
 
 if (!is_dir(DIR))
   die(L('precheck_directory_not_found', DIR));
@@ -18,10 +19,10 @@ if (!is_writable(DIR))
 define('FILES', array_filter(scandir(DIR), fn($file) => is_file(DIR . $file)));
 
 
-$allowed_file_extensions = []; // ['.jpg', '.png', '.zip'];
-$prohibited_file_extensions = ['.htm', '.pdf'];
-$max_file_size = null; // '10M';
-$disk_quota = '100M';
+$allowed_file_extensions = $conf['allowed_ext'];
+$prohibited_file_extensions = $conf['prohibited_ext'];
+$max_file_size = $conf['max_file_size'];
+$disk_quota = $conf['disk_quota'];
 
 
 require('php/utils.php');
