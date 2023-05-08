@@ -58,6 +58,12 @@ if (isset($_GET['action'])) {
         DirectoryConfig::delete($_POST['id']);
       }
       break;
+
+    case 'logout':
+      {
+        Auth::logout();
+      }
+      break;
   }
 
   unset($_GET['action']);

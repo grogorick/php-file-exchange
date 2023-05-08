@@ -17,6 +17,10 @@ use function LOCALIZATION\L;
       box-sizing: border-box;
       width: 100%;
     }
+    #logout {
+      margin-bottom: 20pt;
+      text-align: right;
+    }
     .directory-config div {
       display: inline-block;
       margin: 5pt 0;
@@ -36,6 +40,8 @@ use function LOCALIZATION\L;
   </style>
 </head>
 <body>
+  <div id="logout"><a href="./?<?=add_url_params(['action' => 'logout'])?>">Logout</a></div>
+
   <?php
   function dir_config($id = null, $conf = null)
   {
