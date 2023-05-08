@@ -74,6 +74,11 @@ use function LOCALIZATION\L;
       <div></div>
       <div>
         <input type="submit" value="<?=L('save')?>">
+        <?php if (!is_null($id)) { ?>
+
+        <a href="./?<?=add_url_params(['action' => 'delete', 'id' => $id])?>"><button><?=L('delete')?></button></a>
+        <?php } ?>
+
       </div>
     </form>
     <?php

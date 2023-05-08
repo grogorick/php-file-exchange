@@ -112,6 +112,4 @@ switch ($_GET['action']) {
       }
       action_response($response);
     }
-
-  default:
 }

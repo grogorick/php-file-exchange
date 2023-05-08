@@ -22,6 +22,9 @@ disk_quota:
 save:
  en: "Save"
  de: "Speichern"
+delete:
+ en: "Delete"
+ de: "Löschen"
 
 not_a_directory:
  en: "`%s` is not a directory!"

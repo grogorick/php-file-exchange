@@ -23,6 +23,12 @@ if (isset($_GET['action'])) {
         DirectoryConfig::set($_POST['id'] ?: time(), $conf);
       }
       break;
+
+    case 'delete':
+      {
+        DirectoryConfig::delete($_POST['id']);
+      }
+      break;
   }
 
   unset($_GET['action']);
