@@ -1,8 +1,5 @@
 <?php
 use function LOCALIZATION\L;
-
-$used_disk_space = used_disk_space();
-
 ?>
 <!DOCTYPE html>
 <html lang="de" xml:lang="de">
@@ -15,14 +12,31 @@ $used_disk_space = used_disk_space();
 </head>
 
 <body>
-
-  <div id="messages"></div>
   <?php
+    if (!defined('DIR')) {
+      ?>
+
+  <div id="messages">
+    <form method="GET">
+      <input name="dir" placeholder="<?=L('directory')?>">
+      <input type="submit" value=">">
+    </form>
+  </div>
+</body>
+</html>
+      <?php
+      exit();
+    }
+
+    $used_disk_space = used_disk_space();
+
     $url_upload = add_url_params([
       'action' => 'upload',
       'no-js' => ''
     ]);
   ?>
+
+  <div id="messages"></div>
 
   <form id="file-upload-form" action="./?<?=$url_upload?>" method="post" enctype="multipart/form-data">
     <div class="row">

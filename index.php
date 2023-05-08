@@ -5,6 +5,12 @@ LOCALIZATION\SET_LOCALE($_GET['lang'] ?? null);
 use function LOCALIZATION\L;
 
 
+if (!isset($_GET['dir'])) {
+  require('php/view.php');
+  exit();
+}
+
+
 require('php/config.php');
 DirectoryConfig::load('./');
 $conf = DirectoryConfig::get($_GET['dir']);
