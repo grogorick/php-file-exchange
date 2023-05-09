@@ -7,7 +7,7 @@ use function LOCALIZATION\L;
   <meta charset="utf-8">
   <meta name="robots" content="noindex,nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>File Exchange</title>
+  <title>File Exchange Admin</title>
   <style>
     html, body {
       margin: 0;
@@ -84,7 +84,7 @@ use function LOCALIZATION\L;
         <input type="submit" value="<?=L('save')?>">
         <?php if (!is_null($id)) { ?>
 
-        <a href="./?<?=add_url_params(['action' => 'delete', 'id' => $id])?>"><button><?=L('delete')?></button></a>
+        <a href="./?<?=add_url_params(['action' => 'delete', 'id' => $id])?>"><button type="button"><?=L('delete')?></button></a>
         <?php } ?>
 
       </div>

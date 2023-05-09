@@ -49,13 +49,14 @@ if (isset($_GET['action'])) {
           echo L(...$err);
           break;
         }
-        DirectoryConfig::set($_POST['id'] ?: time(), $conf);
+        DirectoryConfig::set($_POST['id'] ?: strval(time()), $conf);
       }
       break;
 
     case 'delete':
       {
-        DirectoryConfig::delete($_POST['id']);
+        DirectoryConfig::delete($_GET['id']);
+        unset($_GET['id']);
       }
       break;
 
