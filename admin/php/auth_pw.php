@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-require('auth_base.php');
+require('auth.php');
 
 class Auth implements AuthBase
 {
@@ -26,8 +26,7 @@ class Auth implements AuthBase
     if (isset($_POST['pw'])) {
       if ($_POST['pw'] == self::PW) {
         $_SESSION[self::SESSION_VAR] = true;
-        header('Loation: ./');
-        exit();
+        return;
       }
       else {
         $login_failed = true;

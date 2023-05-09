@@ -6,6 +6,8 @@ LOCALIZATION\SET_LOCALE($_GET['lang'] ?? null);
 require('php/auth_pw.php');
 if (!Auth::is_logged_in()) {
   Auth::handle_login();
+  if (Auth::is_logged_in())
+    header('Location:' . $_SERVER['PHP_SELF'] . '?' . $_SERVER['QUERY_STRING']);
   exit();
 }
 

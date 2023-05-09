@@ -8,9 +8,10 @@ interface AuthBase
     public static function logout();
 
     /** Is called as long as `is_logged_in()` returns `false`, so, e.g.,
-     *  - show the login form
-     *  - evaluate via $_POST
-     *  - redirect to './' on success
+     *  1. show the login form
+     *  2. evaluate via $_POST
+     *    - on success `return`
+     *    - else back to 1.
      */
     public static function handle_login();
 }
