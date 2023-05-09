@@ -18,7 +18,10 @@ function deleteFiles(fileItems)
     deleteFileItems.push([fileItem, fileName]);
     fileItem.classList.add('processing');
   }
-  xhRequestPost('./?action=delete', formData, null,
+
+  const url = new URL(location);
+  url.searchParams.set('action', 'delete');
+  xhRequestPost(url.href, formData, null,
     responseText =>
     {
       if (responseText.length) {

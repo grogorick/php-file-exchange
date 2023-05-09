@@ -109,7 +109,9 @@ function uploadFiles()
   }
   approvedFiles.splice(0, i);
 
-  xhRequestPost('./?action=upload', formData,
+  const url = new URL(location);
+  url.searchParams.set('action', 'upload');
+  xhRequestPost(url.href, formData,
     progress =>
     {
       const percent = (100 * progress.loaded / progress.total) + '%';
