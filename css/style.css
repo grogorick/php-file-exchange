@@ -63,6 +63,12 @@ a {
 	text-align: right;
 	padding-right: 60pt;
 	background: #8882;
+	display: flex;
+}
+#dir-name {
+	flex: 1;
+	text-align: left;
+	font-weight: bold;
 }
 
 

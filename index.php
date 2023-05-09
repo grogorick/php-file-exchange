@@ -28,6 +28,7 @@ if (!is_writable(DIR))
 define('FILES', array_filter(scandir(DIR), fn($file) => is_file(DIR . $file)));
 
 
+$dir_name = basename($conf['dir']);
 $allowed_file_extensions = $conf['allowed_ext'];
 $prohibited_file_extensions = $conf['prohibited_ext'];
 $max_file_size = $conf['max_file_size'];
