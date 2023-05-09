@@ -75,7 +75,9 @@ function prepareFilesForUpload(files)
     }
     else {
       newFileItem.classList.add('prepared');
-      newFileItem.querySelector('.file-size').innerHTML = fileSizeStr(file.size);
+      const fileSizeTag = newFileItem.querySelector('.file-size');
+      fileSizeTag.setAttribute('data-value', file.size);
+      fileSizeTag.innerHTML = fileSizeStr(file.size);
       approvedFiles.push([i, newFileItem]);
     }
   }
@@ -137,7 +139,7 @@ function uploadFiles()
         }
         else {
           for (const [ai, serverFile, [fileError, ...errorArgs]] of responseList) {
-            const [fileItem, _] = uploadFileItems[ai];
+            const [fileItem, file] = uploadFileItems[ai];
             fileItem.classList.remove('processing');
 
             if (fileError) {
@@ -149,6 +151,7 @@ function uploadFiles()
               fileItem.querySelector('.download').href += serverFile.url_name;
               fileItem.querySelector('.file-time').innerHTML = serverFile.time;
               fileItem.querySelector('.file-delete input[name="file"]').value = serverFile.url_name;
+              updateUsedDiskSpace(file.size);
               prepareFileDeleteForm(fileItem);
             }
           }

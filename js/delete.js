@@ -15,7 +15,7 @@ function deleteFiles(fileItems)
   for (const fileItem of fileItems) {
     const fileName = fileItem.querySelector('.file-delete input[name="file"]').value;
     formData.append('files[]', fileName);
-    deleteFileItems.push([fileItem, fileName]);
+    deleteFileItems.push(fileItem);
     fileItem.classList.add('processing');
   }
 
@@ -26,8 +26,9 @@ function deleteFiles(fileItems)
     {
       if (responseText.length) {
         const responseList = JSON.parse(responseText);
+        let deleteFilesSize = 0;
         for (const [di, serverFile, [fileError, ...errorArgs]] of responseList) {
-          const [fileItem, fileName] = deleteFileItems[di];
+          const fileItem = deleteFileItems[di];
           fileItem.classList.remove('processing');
 
           if (fileError) {
@@ -35,10 +36,13 @@ function deleteFiles(fileItems)
             fileItem.querySelector('.file-details').innerHTML = L(fileError, ...errorArgs);
           }
           else {
+            const fileSizeTag = fileItem.querySelector('.file-size');
+            deleteFilesSize += parseInt(fileSizeTag.getAttribute('data-value'));
             fileItem.remove();
             showMessage(L('file_deleted') + ' `' + serverFile.name + '`');
           }
         }
+        updateUsedDiskSpace(-deleteFilesSize);
       }
     },
     true);

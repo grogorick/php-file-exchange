@@ -1,3 +1,5 @@
+const usedDiskSpaceTag = document.querySelector('#used-disk-space');
+
 function fileSizeStr(numBytes)
 {
   for (const prefix of ['', 'K', 'M']) {
@@ -7,6 +9,12 @@ function fileSizeStr(numBytes)
     numBytes /= 1024;
   }
   return (Math.round(numBytes * 100) / 100) + ' GB';
+}
+
+function updateUsedDiskSpace(diffBytes)
+{
+  usedDiskSpace += diffBytes;
+  usedDiskSpaceTag.innerHTML = fileSizeStr(usedDiskSpace);
 }
 
 function xhRequestPost(url, data, progressCallback = null, finishedCallback = null, log = true)

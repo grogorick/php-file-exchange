@@ -46,7 +46,11 @@ use function LOCALIZATION\L;
     </div>
   </form>
 
-  <div id="overview" class="row"><?=file_size_str($used_disk_space)?> / <?=file_size_str($disk_quota)?></div>
+  <div id="overview" class="row">
+    <div>
+      <span id="used-disk-space"><?=file_size_str($used_disk_space)?></span> / <?=file_size_str($disk_quota)?>
+    </div>
+  </div>
 
   <div id="file-list">
     <?php
@@ -66,7 +70,7 @@ use function LOCALIZATION\L;
     <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
       <div class="file-name"><a class="download" download href="./?<?=$url_download?>"><?=$file_name?></a></div>
       <div class="file-details">
-        <span class="file-size"><?=$is_template ? '' : file_size($file_name)?></span>
+        <span class="file-size" data-value="<?=$is_template ? '' : filesize(DIR . $file_name)?>"><?=$is_template ? '' : file_size($file_name)?></span>
         <span class="file-time"><?=$is_template ? '' : file_time($file_name)?></span>
       </div>
       <div class="file-delete">
