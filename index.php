@@ -15,6 +15,9 @@ require('php/config.php');
 DirectoryConfig::load('./');
 $conf = DirectoryConfig::get($_GET['dir']);
 
+if (is_null($conf))
+  die(L('invalid_config_id', $_GET['dir']));
+
 define('DIR', $conf['dir']);
 
 if (!is_dir(DIR))

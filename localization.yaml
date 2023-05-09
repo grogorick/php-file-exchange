@@ -2,6 +2,9 @@ directory:
  en: "Directory"
  de: "Verzeichnis"
 
+invalid_config_id:
+ en: "ERROR: Invalid directory ID `%s`!"
+ de: "FEHLER: Ungültige Verzeichnis-ID `%s`!"
 precheck_directory_not_found:
  en: "ERROR: Upload directory `%s` not found!"
  de: "FEHLER: Zielpfad `%s` nicht gefunden!"
