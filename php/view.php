@@ -68,7 +68,9 @@ use function LOCALIZATION\L;
         ?>
 
     <div class="row item <?=$is_template ? 'hidden' : ''?>" <?=$is_template ? 'id="file-item-template"' : ''?>>
-      <div class="file-name"><a class="download" download href="./?<?=$url_download?>"><?=$file_name?></a></div>
+      <div class="file-name" data-value="<?=$file_name?>">
+        <a class="download" download href="./?<?=$url_download?>"><?=$file_name?></a>
+      </div>
       <div class="file-details">
         <span class="file-size" data-value="<?=$is_template ? '' : filesize(DIR . $file_name)?>"><?=$is_template ? '' : file_size($file_name)?></span>
         <span class="file-time"><?=$is_template ? '' : file_time($file_name)?></span>

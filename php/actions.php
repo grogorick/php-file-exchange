@@ -43,6 +43,7 @@ switch ($_GET['action']) {
       }
 
       $used_disk_space = used_disk_space();
+      $current_file_names = array_map(fn($f) => strtolower($f), FILES);
 
       foreach ($_FILES['files']['error'] as $i => $error_code) {
         $file_name = $_FILES['files']['name'][$i];
@@ -71,6 +72,11 @@ switch ($_GET['action']) {
 
         if (($used_disk_space + $file_size) > $disk_quota) {
           $response[] = [$i, null, ['upload_failed_disk_quota', file_size_str($file_size), file_size_str($disk_quota - $used_disk_space)]];
+          continue;
+        }
+
+        if (in_array(strtolower($file_name), $current_file_names)) {
+          $response[] = [$i, null, ['upload_failed_file_already_exists']];
           continue;
         }
 

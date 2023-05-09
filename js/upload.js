@@ -39,6 +39,8 @@ function prepareFilesForUpload(files)
   selectedFiles = files;
   approvedFiles = [];
 
+  const currentFileNames = [...document.querySelectorAll('.file-name')].map(tag => tag.getAttribute('data-value').toLocaleLowerCase());
+
   for (let i = 0; i < files.length; ++i) {
     const file = files[i];
 
@@ -60,6 +62,9 @@ function prepareFilesForUpload(files)
       else if (prohibitedFileExtensions.includes(fileExt)) {
         fileError = L('upload_failed_file_type', fileExt);
       }
+      else if (currentFileNames.includes(file.name.toLocaleLowerCase())) {
+        fileError = L('upload_failed_file_already_exists');
+      }
     }
 
     const newFileItem = fileItemTemplate.cloneNode(true);
@@ -67,6 +72,8 @@ function prepareFilesForUpload(files)
     newFileItem.classList.remove('hidden');
     fileList.prepend(newFileItem);
 
+    const fileNameTag = newFileItem.querySelector('.file-name');
+    fileNameTag.setAttribute('data-value', file.name);
     newFileItem.querySelector('.file-name a').innerHTML = file.name;
 
     if (fileError) {
