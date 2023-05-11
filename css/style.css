@@ -1,11 +1,13 @@
 :root {
 	--color: #333;
 	--background: #eee;
+	--background-highlight: #fff;
 }
 @media (prefers-color-scheme: dark) {
 	:root {
 		--color: #ddd;
 		--background: #111;
+		--background-highlight: #222;
 	}
 }
 
@@ -40,7 +42,7 @@ a {
 	display: inline-block;
 	padding: 10px 5px;
 	border: none;
-	background: var(--background);
+	background: var(--background-highlight);
 	--button-shadow: 10pt;
 	box-shadow: 0 0 var(--button-shadow) #888;
 }
@@ -98,6 +100,9 @@ a {
 }
 
 
+.file-item {
+	padding-bottom: 30pt;
+}
 .row.item {
 	display: flex;
 	flex-wrap: wrap;
@@ -235,4 +240,18 @@ a {
 }
 #messages:empty {
 	display: none;
+}
+
+#messages.init {
+	width: 14rem;
+	text-align: center;
+}
+#messages.init input {
+	padding: .5rem;
+}
+#messages.init input[name="dir"] {
+	width: 10rem;
+}
+#messages.init input[type="submit"] {
+	width: 2rem;
 }

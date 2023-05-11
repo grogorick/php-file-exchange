@@ -17,7 +17,7 @@ use function LOCALIZATION\L;
     if (!defined('DIR')) {
       ?>
 
-  <div id="messages">
+  <div id="messages" class="init">
     <form method="GET">
       <input name="dir" placeholder="<?=L('directory')?>">
       <input type="submit" value=">">
