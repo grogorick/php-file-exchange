@@ -4,7 +4,8 @@ function prepareFileDeleteForm(fileItem)
 {
   on(fileItem.querySelector('.file-delete form'), 'submit', () =>
   {
-    deleteFiles([fileItem]);
+    if (confirm(L('sure_to_delete_file', fileItem.querySelector('.file-name').getAttribute('data-value'))))
+      deleteFiles([fileItem]);
   });
 }
 

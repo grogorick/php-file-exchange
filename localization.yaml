@@ -48,6 +48,9 @@ upload:
  en: "Start upload"
  de: "Hochladen starten"
 
+sure_to_delete_file:
+ en: "Really delete this file?\n%s"
+ de: "Diese Datei wirklich löschen?\n%s"
 file_could_not_be_deleted:
  en: "File could not be deleted."
  de: "Datei konnte nicht gelöscht werden."
