@@ -49,7 +49,7 @@ use function LOCALIZATION\L;
   <div id="overview" class="row">
     <div id="dir-name"><?=$dir_name?></div>
     <div>
-      <span id="used-disk-space"><?=file_size_str($used_disk_space)?></span> / <?=file_size_str($disk_quota)?>
+      <span id="used-disk-space"><?=file_size_str($used_disk_space)?></span><?=$disk_quota ? ' / ' . file_size_str($disk_quota) : ''?>
     </div>
   </div>
 

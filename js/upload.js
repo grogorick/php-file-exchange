@@ -48,10 +48,10 @@ function prepareFilesForUpload(files)
     if (file.size === 0) {
       fileError = L('upload_failed_file_empty_or_directory');
     }
-    else if (file.size > maxFileSize) {
+    else if (maxFileSize && file.size > maxFileSize) {
       fileError = L('upload_failed_file_size', fileSizeStr(file.size), fileSizeStr(maxFileSize));
     }
-    else if ((usedDiskSpace + file.size) > diskQuota) {
+    else if (diskQuota && (usedDiskSpace + file.size) > diskQuota) {
       fileError = L('upload_failed_disk_quota', fileSizeStr(file.size), fileSizeStr(diskQuota - usedDiskSpace));
     }
     else {
@@ -107,7 +107,7 @@ function uploadFiles()
   for (; i < approvedFiles.length; ++i) {
     const [si, fileItem] = approvedFiles[i];
     const file = selectedFiles[si];
-    if ((accuFileSize += file.size) < maxFileSize) {
+    if (!maxFileSize || (accuFileSize += file.size) <= maxFileSize) {
       formData.append('files[]', file);
       uploadFileItems.push([fileItem, file]);
       fileItem.classList.remove('prepared');

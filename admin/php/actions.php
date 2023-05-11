@@ -88,5 +88,5 @@ function check_dir($path)
 
 function parse_comma_separated_list($str)
 {
-  return array_map(fn($val) => trim($val), explode(',', $_POST[$str]));
+  return array_filter(array_map(fn($val) => trim($val), explode(',', $_POST[$str])));
 }
