@@ -87,6 +87,8 @@ switch ($_GET['action']) {
           continue;
         }
 
+        $used_disk_space += $file_size;
+
         $response[] = [
             $i,
             [

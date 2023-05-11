@@ -40,6 +40,7 @@ function prepareFilesForUpload(files)
   approvedFiles = [];
 
   const currentFileNames = [...document.querySelectorAll('.file-name')].map(tag => tag.getAttribute('data-value').toLocaleLowerCase());
+  let currentUsedDiskSpace = usedDiskSpace;
 
   for (let i = 0; i < files.length; ++i) {
     const file = files[i];
@@ -51,8 +52,8 @@ function prepareFilesForUpload(files)
     else if (maxFileSize && file.size > maxFileSize) {
       fileError = L('upload_failed_file_size', fileSizeStr(file.size), fileSizeStr(maxFileSize));
     }
-    else if (diskQuota && (usedDiskSpace + file.size) > diskQuota) {
-      fileError = L('upload_failed_disk_quota', fileSizeStr(file.size), fileSizeStr(diskQuota - usedDiskSpace));
+    else if (diskQuota && (currentUsedDiskSpace + file.size) > diskQuota) {
+      fileError = L('upload_failed_disk_quota', fileSizeStr(file.size), fileSizeStr(diskQuota - currentUsedDiskSpace));
     }
     else {
       const fileExt = file.name.substring(file.name.lastIndexOf('.'));
@@ -86,6 +87,8 @@ function prepareFilesForUpload(files)
       fileSizeTag.setAttribute('data-value', file.size);
       fileSizeTag.innerHTML = fileSizeStr(file.size);
       approvedFiles.push([i, newFileItem]);
+
+      currentUsedDiskSpace += file.size;
     }
   }
   return approvedFiles.length;
