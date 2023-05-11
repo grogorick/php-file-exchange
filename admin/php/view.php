@@ -8,6 +8,7 @@ use function LOCALIZATION\L;
   <meta name="robots" content="noindex,nofollow" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>File Exchange Admin</title>
+  <link rel="icon" type="image/png" href="../favicon.png" />
   <style>
     html, body {
       margin: 0;
