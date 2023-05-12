@@ -53,22 +53,9 @@ use function LOCALIZATION\L;
       <div><i><?=$id?></i></div>
       <div><?=L('upload_directory')?></div>
       <div>
-        <?php
-        if (is_null($id)) {
-          ?>
-
-        <input type="text" name="dir" autofocus autocomplete="off" list="relative_directories">
-        <datalist id="relative_directories"><option value="test123"></datalist>
+        <input type="text" name="dir" value="<?=$conf['dir']?>" autofocus autocomplete="off" list="relative_directories_<?=$id?>">
+        <datalist id="relative_directories_<?=$id?>"></datalist>
         <span class="dir-check"></span>
-            <?php
-          } else {
-            ?>
-
-        <input type="text" value="<?=$conf['dir']?>" disabled>
-        <input type="hidden" name="dir" value="<?=$conf['dir']?>">
-            <?php
-          }
-          ?>
       </div>
       <div><?=L('allowed_file_extensions')?></div>
       <div><input type="text" name="allowed_file_extensions" value="<?=implode(', ', $conf['allowed_ext'] ?? ['.zip','.png','.jpg'])?>"></div>
