@@ -58,13 +58,13 @@ use function LOCALIZATION\L;
         <span class="dir-check"></span>
       </div>
       <div><?=L('allowed_file_extensions')?></div>
-      <div><input type="text" name="allowed_file_extensions" value="<?=implode(', ', $conf['allowed_ext'] ?? ['.zip','.png','.jpg'])?>"></div>
+      <div><input type="text" name="allowed_file_extensions" value="<?=implode(', ', $conf['allowed_ext'] ?? [])?>" title="e.g. .zip, .png, .jpg"></div>
       <div><?=L('prohibited_file_extensions')?></div>
-      <div><input type="text" name="prohibited_file_extensions" value="<?=implode(', ', $conf['prohibited_ext'] ?? [])?>"></div>
+      <div><input type="text" name="prohibited_file_extensions" value="<?=implode(', ', $conf['prohibited_ext'] ?? [])?>" title="e.g. .exe, .sh, .bat, .php, .html"></div>
       <div><?=L('max_file_size')?></div>
-      <div><input type="text" name="max_file_size" value="<?=$conf['max_file_size'] ?? exact_file_size_str(try_get_server_upload_max_filesize())?>"></div>
+      <div><input type="text" name="max_file_size" value="<?=$conf['max_file_size']?>" title="server max.: <?=exact_file_size_str(SERVER_UPLOAD_MAX_FILESIZE)?>"></div>
       <div><?=L('disk_quota')?></div>
-      <div><input type="text" name="disk_quota" value="<?=$conf['disk_quota'] ?? '100M'?>"></div>
+      <div><input type="text" name="disk_quota" value="<?=$conf['disk_quota']?>" title="e.g. 1G"></div>
       <input type="hidden" name="id" value="<?=$id?>">
       <input type="hidden" name="action" value="save">
       <div></div>

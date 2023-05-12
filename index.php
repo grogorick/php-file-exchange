@@ -37,7 +37,7 @@ $disk_quota = $conf['disk_quota'];
 
 require('php/utils.php');
 
-if (!is_null($max_file_size))
+if ($max_file_size)
   $max_file_size = parse_file_size($max_file_size);
 else
   $max_file_size = try_get_server_upload_max_filesize();

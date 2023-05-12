@@ -15,5 +15,7 @@ require('../php/config.php');
 DirectoryConfig::load('../');
 
 require('../php/utils.php');
+define('SERVER_UPLOAD_MAX_FILESIZE', try_get_server_upload_max_filesize());
+
 require('php/actions.php');
 require('php/view.php');
