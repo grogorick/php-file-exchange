@@ -39,8 +39,8 @@ if (isset($_GET['action'])) {
           $dir .= '/';
         $conf = [
           'dir' => $dir,
-          'allowed_ext' => parse_comma_separated_list('allowed_file_extensions'),
-          'prohibited_ext' => parse_comma_separated_list('prohibited_file_extensions'),
+          'allowed_ext' => POST_parse_comma_separated_list('allowed_file_extensions'),
+          'prohibited_ext' => POST_parse_comma_separated_list('prohibited_file_extensions'),
           'max_file_size' => trim($_POST['max_file_size']),
           'disk_quota' => trim($_POST['disk_quota'])
         ];
@@ -91,7 +91,7 @@ function check_dir($path)
   return true;
 }
 
-function parse_comma_separated_list($str)
+function POST_parse_comma_separated_list($str)
 {
   return array_filter(array_map(fn($val) => trim($val), explode(',', $_POST[$str])));
 }
