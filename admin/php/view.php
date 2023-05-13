@@ -38,6 +38,9 @@ use function LOCALIZATION\L;
     .directory-config div input[type="text"] {
       width: 100%;
     }
+    .directory-config .error {
+      color: red;
+    }
   </style>
 </head>
 <body>
