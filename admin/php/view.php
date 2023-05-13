@@ -76,8 +76,11 @@ use function LOCALIZATION\L;
         <?php } ?>
 
       </div>
+      <div></div>
+      <div class="error"><?=$_SESSION['error-' . $id]?></div>
     </form>
     <?php
+    unset($_SESSION['error-' . $id]);
   }
 
   function exact_file_size_str($num_bytes)

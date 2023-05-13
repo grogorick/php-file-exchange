@@ -46,7 +46,7 @@ if (isset($_GET['action'])) {
         ];
         $err = check_dir($conf['dir']);
         if ($err !== true) {
-          echo L(...$err);
+          set_error(L(...$err));
           break;
         }
         DirectoryConfig::set($_POST['id'] ?: strval(time()), $conf);
@@ -70,6 +70,11 @@ if (isset($_GET['action'])) {
   unset($_GET['action']);
   header('Location: ./?' . http_build_query($_GET));
   exit();
+}
+
+function set_error($error)
+{
+  $_SESSION['error-' . $_POST['id']] = $error;
 }
 
 function check_dir($path)
