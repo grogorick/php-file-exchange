@@ -4,6 +4,9 @@ new_directory:
 edit_directories:
  en: "Adjust upload directories"
  de: "Zielverzeichnisse anpassen"
+url_alias:
+ en: "URL alias"
+ de: "URL Alias"
 upload_directory:
  en: "Upload directory"
  de: "Zielverzeichnis"
@@ -35,3 +38,9 @@ no_read_access:
 no_write_access:
  en: "No write access to directory `%s`!"
  de: "Kein Schreibzugriff auf Verzeichnis `%s`!"
+invalid_url_alias:
+ en: "Invalid URL alias!"
+ de: "Ungültiger URL Alias!"
+url_alias_already_exists:
+ en: "URL alias `%s` already exists!"
+ de: "URL Alias `%s` existiert bereits!"

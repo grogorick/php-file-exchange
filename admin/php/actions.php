@@ -34,10 +34,12 @@ if (isset($_GET['action'])) {
   switch ($_GET['action']) {
     case 'save':
       {
+        $id = $_POST['id'] ?: strval(time());
         $dir = trim($_POST['dir']);
         if (mb_substr($dir, -1) !== '/')
           $dir .= '/';
         $conf = [
+          'alias' => trim($_POST['alias']),
           'dir' => $dir,
           'allowed_ext' => POST_parse_comma_separated_list('allowed_file_extensions'),
           'prohibited_ext' => POST_parse_comma_separated_list('prohibited_file_extensions'),
@@ -49,7 +51,21 @@ if (isset($_GET['action'])) {
           set_error(L(...$err));
           break;
         }
-        DirectoryConfig::set($_POST['id'] ?: strval(time()), $conf);
+        if ($conf['alias']) {
+          if (!preg_match('/^' . ALIAS_PATTERN . '$/', $conf['alias'])) {
+            $conf['alias'] = '';
+            set_error(L('invalid_url_alias'));
+          }
+          else
+            foreach (DirectoryConfig::dict() as $other_id => $other_conf) {
+              if (strval($other_id) !== $id && $other_conf['alias'] === $conf['alias']) {
+                $conf['alias'] = '';
+                set_error(L('url_alias_already_exists', $other_conf['alias']), $id);
+                break;
+              }
+            }
+        }
+        DirectoryConfig::set($id, $conf);
       }
       break;
 
@@ -72,9 +88,9 @@ if (isset($_GET['action'])) {
   exit();
 }
 
-function set_error($error)
+function set_error($error, $conf_id = null)
 {
-  $_SESSION['error-' . $_POST['id']] = $error;
+  $_SESSION['error-' . ($conf_id ?? $_POST['id'])] = $error;
 }
 
 function check_dir($path)

@@ -51,6 +51,8 @@ use function LOCALIZATION\L;
     <form action="./?<?=add_url_params(['action' => 'save'])?>" <?=is_null($id) ? 'id="edit-' . $id . '"' : ''?> method="post" class="directory-config">
       <div></div>
       <div><i><?=$id?></i></div>
+      <div><?=L('url_alias')?></div>
+      <div><input type="text" name="alias" pattern="<?=ALIAS_PATTERN?>" value="<?=$conf['alias']?>" title="e.g. my-catchy-url"></div>
       <div><?=L('upload_directory')?></div>
       <div>
         <input type="text" name="dir" value="<?=$conf['dir']?>" autofocus autocomplete="off" list="relative_directories_<?=$id?>">
