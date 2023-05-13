@@ -34,6 +34,7 @@ function prepareDirectorySelector(input)
           update_dir_datalist(input, input.nextElementSibling, path, responseList);
         });
     }
+    input.parentNode.querySelector('.dir-check').innerHTML = '...';
     checkDir(path);
   });
 }

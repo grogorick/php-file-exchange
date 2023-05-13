@@ -24,6 +24,7 @@ use function LOCALIZATION\L;
     }
     .directory-config div {
       display: inline-block;
+      vertical-align: top;
       margin: 5pt 0;
       box-sizing: border-box;
       --label-width: 300pt;
