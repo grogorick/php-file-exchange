@@ -71,6 +71,11 @@ use function LOCALIZATION\L;
       <div><input type="text" name="max_file_size" value="<?=$conf['max_file_size']?>" title="server max.: <?=exact_file_size_str(SERVER_UPLOAD_MAX_FILESIZE)?>"></div>
       <div><?=L('disk_quota')?></div>
       <div><input type="text" name="disk_quota" value="<?=$conf['disk_quota']?>" title="e.g. 1G"></div>
+      <?php if (!is_null($id)) { ?>
+
+        <div><?=L('used_disk_space')?></div>
+        <div><input type="text" disabled value="<?=file_size_str(used_disk_space_in_dir($conf['dir']))?>"></div>
+      <?php } ?>
       <input type="hidden" name="id" value="<?=$id?>">
       <input type="hidden" name="action" value="save">
       <div></div>
@@ -78,7 +83,7 @@ use function LOCALIZATION\L;
         <input type="submit" value="<?=L('save')?>">
         <?php if (!is_null($id)) { ?>
 
-        <a href="./?<?=add_url_params(['action' => 'delete', 'id' => $id])?>"><button type="button"><?=L('delete')?></button></a>
+          <a href="./?<?=add_url_params(['action' => 'delete', 'id' => $id])?>"><button type="button"><?=L('delete')?></button></a>
         <?php } ?>
 
       </div>

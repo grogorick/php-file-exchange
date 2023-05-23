@@ -1,5 +1,10 @@
 <?php
 
+function list_files($dir)
+{
+  return array_filter(scandir($dir), function($file) use ($dir) { return is_file($dir . $file); });
+}
+
 function file_size($file_name)
 {
   return file_size_str(filesize(DIR . $file_name));

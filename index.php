@@ -25,8 +25,10 @@ if (!is_dir(DIR))
 if (!is_writable(DIR))
   die(L('precheck_directory_not_writable', DIR));
 
-define('FILES', array_filter(scandir(DIR), fn($file) => is_file(DIR . $file)));
 
+require('php/utils.php');
+
+define('FILES', list_files(DIR));
 
 $dir_name = basename($conf['dir']);
 $allowed_file_extensions = $conf['allowed_ext'];
@@ -34,8 +36,6 @@ $prohibited_file_extensions = $conf['prohibited_ext'];
 $max_file_size = $conf['max_file_size'];
 $disk_quota = $conf['disk_quota'];
 
-
-require('php/utils.php');
 
 if ($max_file_size)
   $max_file_size = parse_file_size($max_file_size);

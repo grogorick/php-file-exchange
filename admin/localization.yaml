@@ -22,6 +22,9 @@ max_file_size:
 disk_quota:
  en: "Maximum disk quota for this directory"
  de: "Maximaler Speicherplatz für dieses Verzeichnis"
+used_disk_space:
+ en: "Disk space currently used"
+ de: "Aktuell belegter Speicherplatz"
 save:
  en: "Save"
  de: "Speichern"
