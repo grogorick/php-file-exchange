@@ -36,7 +36,7 @@ use function LOCALIZATION\L;
       min-width: var(--label-width);
       width: calc(100% - var(--label-width) - 10pt);
     }
-    .directory-config div input[type="text"] {
+    .directory-config div input:not([type="submit"]) {
       width: 100%;
     }
     .directory-config .error {
@@ -76,6 +76,8 @@ use function LOCALIZATION\L;
         <div><?=L('used_disk_space')?></div>
         <div><input type="text" disabled value="<?=file_size_str(used_disk_space_in_dir($conf['dir']))?>"></div>
       <?php } ?>
+      <div><?=L('password')?></div>
+      <div><input type="password" name="password" value="<?=$conf['password']?>" autocomplete="off"></div>
       <input type="hidden" name="id" value="<?=$id?>">
       <input type="hidden" name="action" value="save">
       <div></div>
@@ -103,6 +105,14 @@ use function LOCALIZATION\L;
       $num_bytes /= 1024;
     }
     return $num_bytes . 'T';
+  }
+
+  function used_disk_space_in_dir($dir)
+  {
+    $size = 0;
+    foreach (list_files($dir) as $file)
+      $size += filesize($dir . $file);
+    return $size;
   }
   ?>
 

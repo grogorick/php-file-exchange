@@ -44,7 +44,8 @@ if (isset($_GET['action'])) {
           'allowed_ext' => POST_parse_comma_separated_list('allowed_file_extensions'),
           'prohibited_ext' => POST_parse_comma_separated_list('prohibited_file_extensions'),
           'max_file_size' => trim($_POST['max_file_size']),
-          'disk_quota' => trim($_POST['disk_quota'])
+          'disk_quota' => trim($_POST['disk_quota']),
+          'password' => $_POST['password']
         ];
         $err = check_dir($conf['dir']);
         if ($err !== true) {
@@ -64,6 +65,11 @@ if (isset($_GET['action'])) {
                 break;
               }
             }
+        }
+        if (!is_null($conf['password'])) {
+          $old_conf = DirectoryConfig::get($id);
+          if ($conf['password'] !== $old_conf['password'])
+            $conf['password'] = encrypt_password($conf['password']);
         }
         DirectoryConfig::set($id, $conf);
       }

@@ -111,3 +111,15 @@ function add_url_params($param_value_array)
     $arr[$param] = $value;
   return http_build_query($arr);
 }
+
+function check_password($hash1, $hash2)
+{
+  return password_verify($hash1, $hash2);
+}
+
+function encrypt_password($password)
+{
+  if (empty($password))
+    return null;
+  return password_hash($password, PASSWORD_BCRYPT);
+}

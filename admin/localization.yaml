@@ -25,6 +25,9 @@ disk_quota:
 used_disk_space:
  en: "Disk space currently used"
  de: "Aktuell belegter Speicherplatz"
+password:
+ en: "Password"
+ de: "Passwort"
 save:
  en: "Save"
  de: "Speichern"
