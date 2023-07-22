@@ -13,7 +13,7 @@ if (!isset($_GET['dir'])) {
 
 require('php/config.php');
 DirectoryConfig::load('./');
-$conf = DirectoryConfig::get($_GET['dir']);
+[$conf_id, $conf] = DirectoryConfig::get($_GET['dir']);
 
 if (is_null($conf))
   die(L('invalid_config_id', $_GET['dir']));
@@ -35,6 +35,7 @@ $allowed_file_extensions = $conf['allowed_ext'];
 $prohibited_file_extensions = $conf['prohibited_ext'];
 $max_file_size = $conf['max_file_size'];
 $disk_quota = $conf['disk_quota'];
+$password_hash = $conf['password'];
 
 
 if ($max_file_size)

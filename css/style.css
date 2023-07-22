@@ -287,8 +287,12 @@ a {
 #messages.init input {
 	padding: .5rem;
 }
-#messages.init input[name="dir"] {
+#messages.init input[name="dir"],
+#messages.init input[name="password"] {
 	width: 10rem;
+}
+#messages.init input[name="password"] {
+	margin-top: 10pt;
 }
 #messages.init input[type="submit"] {
 	width: 2rem;

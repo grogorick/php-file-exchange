@@ -67,7 +67,7 @@ if (isset($_GET['action'])) {
             }
         }
         if (!is_null($conf['password'])) {
-          $old_conf = DirectoryConfig::get($id);
+          [$old_id, $old_conf] = DirectoryConfig::get($id);
           if ($conf['password'] !== $old_conf['password'])
             $conf['password'] = encrypt_password($conf['password']);
         }

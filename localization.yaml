@@ -1,6 +1,9 @@
 directory:
  en: "Directory"
  de: "Verzeichnis"
+password:
+ en: "Password"
+ de: "Passwort"
 
 invalid_config_id:
  en: "ERROR: Invalid directory ID `%s`!"

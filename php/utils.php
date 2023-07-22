@@ -112,9 +112,9 @@ function add_url_params($param_value_array)
   return http_build_query($arr);
 }
 
-function check_password($hash1, $hash2)
+function check_password($password, $hash)
 {
-  return password_verify($hash1, $hash2);
+  return password_verify($password, $hash);
 }
 
 function encrypt_password($password)

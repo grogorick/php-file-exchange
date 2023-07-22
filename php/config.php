@@ -34,10 +34,10 @@ class DirectoryConfig {
   public static function get($id)
   {
     if (is_numeric($id))
-      return self::$config[$id];
-    foreach (self::$config as $conf)
+      return [$id, self::$config[$id]];
+    foreach (self::$config as $alias_id => $conf)
       if ($id === $conf['alias'])
-        return $conf;
+        return [$alias_id, $conf];
   }
 
   public static function dict()

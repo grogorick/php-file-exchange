@@ -1,5 +1,6 @@
 <?php
 use function LOCALIZATION\L;
+session_start();
 ?>
 <!DOCTYPE html>
 <html lang="de" xml:lang="de">
@@ -27,6 +28,27 @@ use function LOCALIZATION\L;
 </html>
       <?php
       exit();
+    }
+
+    if (!is_null($password_hash) && !isset($_SESSION['password_approved_' . $conf_id])) {
+      if (isset($_POST['password']) && check_password($_POST['password'], $password_hash)) {
+        $_SESSION['password_approved_' . $conf_id] = true;
+      }
+      else {
+        ?>
+
+  <div id="messages" class="init">
+    <form method="POST">
+      <div><?=$dir_name?></div>
+      <input name="password" type="password" placeholder="<?=L('password')?>">
+      <input type="submit" value=">">
+    </form>
+  </div>
+</body>
+</html>
+        <?php
+        exit();
+      }
     }
 
     $used_disk_space = used_disk_space();
