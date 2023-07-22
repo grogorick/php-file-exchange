@@ -78,7 +78,7 @@ session_start();
           <?=
             (!empty($allowed_file_extensions) ? '<span>' . L('allowed_file_extensions') . implode(', ', $allowed_file_extensions) . '</span>' : '') .
             (!empty($prohibited_file_extensions) ? '<span>' . L('prohibited_file_extensions') . implode(', ', $prohibited_file_extensions) . '</span>' : '') .
-            ($max_file_size ? '<span>' . L('max_file_size') . $max_file_size . '</span>' : '')
+            ($max_file_size ? '<span>' . L('max_file_size') . file_size_str($max_file_size) . '</span>' : '')
           ?>
         </div>
       </div>
