@@ -15,7 +15,7 @@ function action_response($data)
   exit();
 }
 
-switch ($_GET['action']) {
+switch ($_GET['action'] ?? null) {
   case 'download':
     {
       $file_name = from_url($_GET['file']);
