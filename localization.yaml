@@ -58,6 +58,15 @@ file_deleted:
  en: "Deleted:"
  de: "Gelöscht:"
 
+allowed_file_extensions:
+ en: "Allowed files: "
+ de: "Erlaube Dateien: "
+prohibited_file_extensions:
+ en: "Prohibited files: "
+ de: "verbotene Dateien: "
+max_file_size:
+ en: "Max. file size: "
+ de: "Max. Dateigröße: "
 empty:
  en: "Empty"
  de: "Leer"

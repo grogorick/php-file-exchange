@@ -2,12 +2,14 @@
 	--color: #333;
 	--background: #eee;
 	--background-highlight: #fff;
+	--shadow: 1pt 1pt 5pt #0005;
 }
 @media (prefers-color-scheme: dark) {
 	:root {
 		--color: #ddd;
 		--background: #111;
 		--background-highlight: #222;
+		--shadow: 1pt 1pt 5pt #000;
 	}
 }
 
@@ -85,6 +87,42 @@ a {
 	flex: 1;
 	text-align: left;
 	font-weight: bold;
+}
+#info {
+	display: inline-block;
+	vertical-align: middle;
+	position: relative;
+	margin-left: 10pt;
+}
+#info::before {
+	border-radius: 50%;
+	content: 'i';
+	background: #8885;
+	display: table-cell;
+	width: 20pt;
+	height: 20pt;
+	text-align: center;
+	vertical-align: middle;
+}
+#info:hover::before {
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+}
+#info:not(:hover) > div {
+	display: none;
+}
+#info > div {
+	position: absolute;
+	width: 200pt;
+	right: 0;
+	background: #8883;
+	backdrop-filter: blur(2px);
+	padding: 10pt;
+	border-radius: 5pt;
+	box-shadow: var(--shadow);
+}
+#info > div > span {
+	display: block;
 }
 
 
