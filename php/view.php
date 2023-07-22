@@ -73,15 +73,22 @@ session_start();
     <div id="dir-name"><?=$dir_name?></div>
     <div>
       <span id="used-disk-space"><?=file_size_str($used_disk_space)?></span><?=$disk_quota ? ' / ' . file_size_str($disk_quota) : ''?>
+      <?php
+        $show_max_file_size = $max_file_size && ($max_file_size < $disk_quota);
+        if (!empty($allowed_file_extensions) || !empty($prohibited_file_extensions) || $show_max_file_size) {
+      ?>
       <div id="info">
         <div>
           <?=
             (!empty($allowed_file_extensions) ? '<span>' . L('allowed_file_extensions') . implode(', ', $allowed_file_extensions) . '</span>' : '') .
             (!empty($prohibited_file_extensions) ? '<span>' . L('prohibited_file_extensions') . implode(', ', $prohibited_file_extensions) . '</span>' : '') .
-            ($max_file_size ? '<span>' . L('max_file_size') . file_size_str($max_file_size) . '</span>' : '')
+            ($show_max_file_size ? '<span>' . L('max_file_size') . file_size_str($max_file_size) . '</span>' : '')
           ?>
         </div>
       </div>
+      <?php
+        }
+      ?>
     </div>
   </div>
 
