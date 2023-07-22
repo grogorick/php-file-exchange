@@ -68,7 +68,7 @@ use function LOCALIZATION\L;
       <div><?=L('prohibited_file_extensions')?></div>
       <div><input type="text" name="prohibited_file_extensions" value="<?=implode(', ', $conf['prohibited_ext'] ?? [])?>" title="e.g. .exe, .sh, .bat, .php, .html"></div>
       <div><?=L('max_file_size')?></div>
-      <div><input type="text" name="max_file_size" value="<?=$conf['max_file_size']?>" title="server max.: <?=exact_file_size_str(SERVER_UPLOAD_MAX_FILESIZE)?>"></div>
+      <div><input type="text" name="max_file_size" value="<?=$conf['max_file_size']?>" title="server max.: <?=exact_file_size_str(SERVER_UPLOAD_MAX_FILESIZE)?>" placeholder="<?=file_size_str(try_get_server_upload_max_filesize())?>"></div>
       <div><?=L('disk_quota')?></div>
       <div><input type="text" name="disk_quota" value="<?=$conf['disk_quota']?>" title="e.g. 1G"></div>
       <?php if (!is_null($id)) { ?>
